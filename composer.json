@@ -1,0 +1,23 @@
+{
+    "name": "u-is/mvf",
+    "description": "",
+    "authors": [
+        {
+            "name": "Martiros Aghajanyan",
+            "email": "martiros.aghajanyan@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "UIS\\Mvf\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
