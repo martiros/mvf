@@ -30,6 +30,7 @@ class ValidationManager
         'password' => '\UIS\Mvf\ValidatorTypes\Password',
         'date' => '\UIS\Mvf\ValidatorTypes\Date',
         'url' => '\UIS\Mvf\ValidatorTypes\Url',
+        'mvf' => '\UIS\Mvf\ValidatorTypes\Mvf',
     );
 
     protected $registeredFilters = array(

@@ -62,14 +62,11 @@ class ValidationResult implements \JsonSerializable
      *  @return array
      */
     public function errors () {
-
         $return = array();
         foreach( $this->errorsMap AS $key => $error ) {
             if ( $error instanceof ValidationResult ) {
                 $subErrors = $error->errors();
-                foreach( $subErrors AS $errorKey => $error ){
-                    $return[$key.'_'.$errorKey] = $error;
-                }
+                $return[$key] = $subErrors;
             }
             else{
                 $return[$key] = $this->error( $key );
@@ -77,7 +74,6 @@ class ValidationResult implements \JsonSerializable
         }
         return $return;
     }
-
 
     /**
      *  Get error by key
