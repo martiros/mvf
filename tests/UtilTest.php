@@ -15,6 +15,14 @@ class UtilTest extends TestCase
         $this->assertFalse(Util::isInt('5.5'));
     }
 
+    public function testDigit()
+    {
+        $this->assertTrue(Util::isDigit('55'));
+        $this->assertTrue(Util::isDigit('01555'));
+        $this->assertFalse(Util::isDigit('x01555'));
+        $this->assertFalse(Util::isDigit('5.5'));
+    }
+
     public function testEmail()
     {
         $this->assertTrue(Util::isEmail('martiros.aghajanyan@gmail.com'));

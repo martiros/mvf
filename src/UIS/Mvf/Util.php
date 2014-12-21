@@ -17,6 +17,18 @@ class Util
     }
 
     /**
+     * @param mixed $value
+     * @return bool
+     */
+    public static function isDigit($value)
+    {
+        if (preg_match("/^[[:digit:]]+$/", $value)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * @param mixed $email
      * @return bool
      */
