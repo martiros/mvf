@@ -14,15 +14,15 @@ class Int extends BaseValidator
     public function validate()
     {
         $valueToValidate = $this->getVarValue();
-        if (Util::isInt($valueToValidate)) {
-            return $this->makeError('invalidData');
+        if (!Util::isInt($valueToValidate)) {
+            return $this->makeError('invalid_data');
         }
 
         if ($this->params['min_value'] !== null && $this->params['min_value'] > $valueToValidate) {
             return $this->makeError('min_value');
         }
 
-        if ($this->params['max_value'] !== null && $this->params['max_value'] > $valueToValidate) {
+        if ($this->params['max_value'] !== null && $this->params['max_value'] < $valueToValidate) {
             return $this->makeError('max_value');
         }
         return $this->makeValid();
