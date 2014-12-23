@@ -81,7 +81,7 @@ class ConfigItem
         array_walk_recursive(
             $options,
             function (&$item, $key) use ($validationManager) {
-                if ($key !== 'success' && is_object($item) && ($item instanceof Closure)) {
+                if ($key !== 'function' && $key !== 'success' && is_object($item) && ($item instanceof Closure)) {
                     $item = $item->bindTo($validationManager);
                     $item = $item();
                 }

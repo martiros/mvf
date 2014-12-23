@@ -33,7 +33,8 @@ class ValidationManager
         'url' => '\UIS\Mvf\ValidatorTypes\Url',
         'mvf' => '\UIS\Mvf\ValidatorTypes\Mvf',
         'array' => '\UIS\Mvf\ValidatorTypes\ArrayValidator',
-        'phone' => '\UIS\Mvf\ValidatorTypes\Phone'
+        'phone' => '\UIS\Mvf\ValidatorTypes\Phone',
+        'function' => '\UIS\Mvf\ValidatorTypes\FunctionValidator'
     );
 
     protected $registeredFilters = array(
