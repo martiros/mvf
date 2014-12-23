@@ -47,7 +47,7 @@ class ValidationResult implements \JsonSerializable
     public function isValid( $key = null ) {
 
         if( $key == null ) {
-            return empty( $this->errors() );
+            return $this->errors()->isEmpty();
         }
         else {
             if( !isset( $this->errorsMap[ $key ] ) ) {
@@ -72,7 +72,7 @@ class ValidationResult implements \JsonSerializable
                 $return[$key] = $this->error( $key );
             }
         }
-        return $return;
+        return new ValidationErrorsMap($return);
     }
 
     /**
@@ -116,7 +116,7 @@ class ValidationResult implements \JsonSerializable
     public function jsonSerialize()
     {
         $errors = $this->errors();
-        if (empty($errors)) {
+        if ($errors->isEmpty()) {
             return null;
         }
         return $errors;

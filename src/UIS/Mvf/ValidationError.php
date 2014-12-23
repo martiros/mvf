@@ -65,4 +65,13 @@ class ValidationError
         }
         return false;
     }
+
+    public function jsonSerialize()
+    {
+        $errors = $this->errors();
+        if (empty($errors)) {
+            return null;
+        }
+        return  ($errors);
+    }
 }

@@ -32,6 +32,8 @@ class ValidationManager
         'date' => '\UIS\Mvf\ValidatorTypes\Date',
         'url' => '\UIS\Mvf\ValidatorTypes\Url',
         'mvf' => '\UIS\Mvf\ValidatorTypes\Mvf',
+        'array' => '\UIS\Mvf\ValidatorTypes\ArrayValidator',
+        'phone' => '\UIS\Mvf\ValidatorTypes\Phone'
     );
 
     protected $registeredFilters = array(
@@ -149,6 +151,7 @@ class ValidationManager
     public function __construct(&$data, $rules = array(), $filter = true)
     {
         $this->data = & $data;
+        $this->data = is_array($this->data) ? $this->data : array();
         $this->filter = $filter;
         $this->processValidationRules($rules);
     }

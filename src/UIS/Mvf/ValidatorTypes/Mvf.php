@@ -2,7 +2,6 @@
 
 namespace UIS\Mvf\ValidatorTypes;
 
-use UIS\Mvf\Util;
 use UIS\Mvf\ValidationManager;
 
 class Mvf extends BaseValidator
