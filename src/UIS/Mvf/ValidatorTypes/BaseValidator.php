@@ -64,6 +64,22 @@ abstract class BaseValidator
     }
 
     /**
+     * @return \UIS\Mvf\ConfigItem
+     */
+    public function getValidationRule()
+    {
+        return $this->rule;
+    }
+
+    /**
+     * @return \UIS\Mvf\ValidationManager
+     */
+    public function getValidationManager()
+    {
+        return $this->validationManager;
+    }
+
+    /**
      * @return bool
      */
     public function isEmpty()
@@ -108,11 +124,6 @@ abstract class BaseValidator
         return false;
     }
 
-    public function getValidationManager()
-    {
-        return $this->validationManager;
-    }
-
     /******************************************************************************************************************/
     /******************************************************************************************************************/
     /******************************************************************************************************************/
@@ -125,7 +136,7 @@ abstract class BaseValidator
     protected $mvfConfigItem = null;
 
     /**
-     *  @return UIS_Mvf_Config_Item
+     *  @return \UIS\Mvf\ConfigItem
      */
     public function getConfig() {
         return 	$this->mvfConfigItem;

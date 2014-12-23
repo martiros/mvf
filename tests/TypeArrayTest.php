@@ -1,6 +1,7 @@
 <?php
 
 use \UIS\Mvf\ValidationManager;
+use \UIS\Mvf\ValidationResult;
 
 class TypeArrayTest extends TestCase
 {
@@ -130,6 +131,7 @@ class TypeArrayTest extends TestCase
 
     public function testItemsValidator()
     {
+        $testCase = $this;
         $validationRules = array(
             'name' => array(
                 'type' => 'string'
@@ -150,7 +152,10 @@ class TypeArrayTest extends TestCase
                             )
                         )
                     )
-                )
+                ),
+                'success' => function($tags, ValidationResult $result) use ($testCase){
+                    $testCase->assertTrue(count($tags) === 2);
+                }
             )
         );
         $validData = array(
