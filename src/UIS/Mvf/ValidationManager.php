@@ -18,6 +18,16 @@ class ValidationManager
     protected $rules = array();
 
     /**
+     * @var string
+     */
+    protected $modelClass = null;
+
+    /**
+     * @var Object
+     */
+    protected $model = null;
+
+    /**
      * @var bool
      */
     protected $filter = true;
@@ -33,6 +43,7 @@ class ValidationManager
         'url' => '\UIS\Mvf\ValidatorTypes\Url',
         'mvf' => '\UIS\Mvf\ValidatorTypes\Mvf',
         'array' => '\UIS\Mvf\ValidatorTypes\ArrayValidator',
+        'enum' => '\UIS\Mvf\ValidatorTypes\Enum',
         'phone' => '\UIS\Mvf\ValidatorTypes\Phone',
         'function' => '\UIS\Mvf\ValidatorTypes\FunctionValidator'
     );
@@ -64,6 +75,11 @@ class ValidationManager
             if (!isset($this->rules[$key])) {
                 unset($this->data[$key]);
             }
+        }
+        $model = $this->getModel();
+        if ($model) {
+            $model->fill($this->data);
+            $this->data = $model;
         }
         return $validationResult;
     }
@@ -149,11 +165,19 @@ class ValidationManager
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function __construct(&$data, $rules = array(), $filter = true)
+    public function __construct(&$data, $rules = array(), $filter = true, $model = null)
     {
         $this->data = & $data;
         $this->data = is_array($this->data) ? $this->data : array();
         $this->filter = $filter;
+
+        if (is_string($model)) {
+            $this->modelClass = $model;
+        } else if (is_object($model)) {
+            $this->modelClass = get_class($model);
+            $this->model = $model;
+        }
+
         $this->processValidationRules($rules);
     }
 
@@ -174,6 +198,17 @@ class ValidationManager
         $this->data = & $data;
     }
 
+    public function getModel()
+    {
+        if ($this->model === null) {
+            if ($this->modelClass === null) {
+                return null;
+            }
+            $modelClassName = $this->modelClass;
+            $this->model = new $modelClassName();
+        }
+        return $this->model;
+    }
 
     /**
      * Register filter class
