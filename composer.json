@@ -14,9 +14,6 @@
         "illuminate/foundation": "*"
     },
     "autoload": {
-        "classmap": [
-            "src/migrations"
-        ],
         "psr-0": {
             "UIS\\Mvf\\": "src/"
         }
