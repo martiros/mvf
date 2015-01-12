@@ -50,14 +50,22 @@ class ArrayValidator extends BaseValidator
 
         if ($this->params['items_validator'] !== null) {
             $validationResult = new ValidationResult();
-            $validatorRules = is_array($this->params['items_validator']) ? $this->params['items_validator']['mapping'] : $this->params['items_validator'];
+            $model = null;
+            if (is_array($this->params['items_validator'])) {
+                $validatorRules = $this->params['items_validator']['mapping'];
+                if (isset($this->params['items_validator']['model'])) {
+                    $model = $this->params['items_validator']['model'];
+                }
+            } else {
+                $validatorRules = $this->params['items_validator'];
+            }
             foreach ($arrayToValidate as $key => &$subArray) {
                 if (!is_array($subArray)) {
                     // @TODO: Move to default translates
                     $validationResult->addError($key, 'data is not array');
                     continue;
                 }
-                $validator = new ValidationManager($subArray, $validatorRules);
+                $validator = new ValidationManager($subArray, $validatorRules, true, $model);
                 $validator->setParent($this->getValidationManager());
                 $subArrayValidationResult = $validator->validate();
                 if (!$subArrayValidationResult->isValid()) {

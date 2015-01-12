@@ -123,11 +123,9 @@ class ValidationManager
 
         if ($validationError->isValid()) {
             $onSuccess = $validationRule->getOnSuccessCallback();
-            if (!empty($onSuccess)) {
-                if (is_object($onSuccess) && ($onSuccess instanceof Closure)) {
-                    $onSuccess = $onSuccess->bindTo($validationRule->getValidator());
-                    $onSuccess($validateVar, $validationError);
-                }
+            if (is_callable($onSuccess)) {
+//                    $onSuccess = $onSuccess->bindTo($validationRule->getValidator());
+                call_user_func($onSuccess, $validateVar, $validationError, $this);
             }
         }
         return $validationError;

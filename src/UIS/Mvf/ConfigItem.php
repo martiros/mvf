@@ -82,8 +82,8 @@ class ConfigItem
             $options,
             function (&$item, $key) use ($validationManager) {
                 if ($key !== 'function' && $key !== 'success' && is_object($item) && ($item instanceof Closure)) {
-                    $item = $item->bindTo($validationManager);
-                    $item = $item();
+//                    $item = $item->bindTo($validationManager);
+                    $item = call_user_func($item, $validationManager);
                 }
             }
         );

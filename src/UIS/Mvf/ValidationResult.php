@@ -10,6 +10,13 @@ class ValidationResult implements \JsonSerializable
      */
     private $errorsMap = array();
 
+    public function __construct($errors = [])
+    {
+        foreach ($errors as $key => $error) {
+            $this->addError($key, $error);
+        }
+    }
+
     /**
      *  Add error to map
      *  @param    string 						  $key
