@@ -52,9 +52,13 @@ class ArrayValidator extends BaseValidator
             $validationResult = new ValidationResult();
             $model = null;
             if (is_array($this->params['items_validator'])) {
-                $validatorRules = $this->params['items_validator']['mapping'];
-                if (isset($this->params['items_validator']['model'])) {
-                    $model = $this->params['items_validator']['model'];
+                if (isset($this->params['items_validator']['mapping'])) {
+                    $validatorRules = $this->params['items_validator']['mapping'];
+                    if (isset($this->params['items_validator']['model'])) {
+                        $model = $this->params['items_validator']['model'];
+                    }
+                } else {
+                    $validatorRules = $this->params['items_validator'];
                 }
             } else {
                 $validatorRules = $this->params['items_validator'];
