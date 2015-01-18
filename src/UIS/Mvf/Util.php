@@ -10,7 +10,14 @@ class Util
      */
     public static function isInt($value)
     {
+        if (is_int($value)) {
+            return true;
+        }
+
         if (preg_match("/^-?[1-9][0-9]*$/D", $value)) {
+            return true;
+        }
+        if ($value === '0') {
             return true;
         }
         return false;

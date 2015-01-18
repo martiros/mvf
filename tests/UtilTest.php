@@ -6,6 +6,8 @@ class UtilTest extends TestCase
 {
     public function testInt()
     {
+        $this->assertTrue(Util::isInt('0'));
+        $this->assertTrue(Util::isInt(0));
         $this->assertTrue(Util::isInt(5));
         $this->assertTrue(Util::isInt('5'));
         $this->assertTrue(Util::isInt(1.0));
