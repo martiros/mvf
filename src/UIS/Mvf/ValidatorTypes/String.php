@@ -46,6 +46,8 @@ class String extends BaseValidator
 
     protected function correctEncoding()
     {
+        // @TODO: Implement correct encoding
+        return;
         if ($this->params['encoding']==='UTF-8') {
             $string = $this->getVarValue();
             $string = preg_replace('/[\xF0-\xF7].../s', '', $string); // remove all not UTF-8 characters and ( hard code for utf_general_ci, FIXME )
