@@ -30,15 +30,14 @@ abstract class BaseValidator
 
     public function __construct(ValidationManager $validationManager, ConfigItem $rule)
     {
-        $this->resetError();
         $this->rule = $rule;
         $this->validationManager = $validationManager;
+        $this->resetError();
     }
 
     protected function resetError()
     {
         $this->error = new ValidationError();
-        $this->error->setParams($this->getParams());
     }
 
     /**
@@ -53,6 +52,7 @@ abstract class BaseValidator
             }
             $this->params[$key] = $param;
         }
+        $this->error->setParams($this->params);
     }
 
     /**
