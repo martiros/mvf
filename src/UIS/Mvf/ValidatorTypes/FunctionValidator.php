@@ -14,7 +14,7 @@ class FunctionValidator extends BaseValidator
     {
         $this->validateParams();
         $valueToValidate = $this->getVarValue();
-        if (!call_user_func($this->params['function'], $valueToValidate)) {
+        if (!call_user_func($this->params['function'], $valueToValidate, $this->getValidationManager())) {
             return $this->makeError();
         }
         return $this->makeValid();
