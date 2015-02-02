@@ -18,6 +18,11 @@ class ValidationManager
     protected $rules = array();
 
     /**
+     * @var ValidationResult
+     */
+    protected $validationResult = null;
+
+    /**
      * @var string
      */
     protected $modelClass = null;
@@ -60,7 +65,7 @@ class ValidationManager
     {
         $this->filter();
 
-        $validationResult = new ValidationResult();
+        $this->validationResult = $validationResult = new ValidationResult();
         foreach ($this->rules as $key => $rule) {
             $validateDataItem = array_key_exists($key, $this->data) ? $this->data[$key] : '';
             $validationError = $this->validateItem($validateDataItem, $rule);
@@ -189,6 +194,14 @@ class ValidationManager
             return $this->data[$key];
         }
         return null;
+    }
+
+    /**
+     * @return ValidationResult
+     */
+    public function getValidationResult()
+    {
+        return $this->validationResult;
     }
 
     public function setData(&$data)
