@@ -36,6 +36,18 @@ class Util
     }
 
     /**
+     * @param mixed $value
+     * @return bool
+     */
+    public static function isFloat($value)
+    {
+        if (filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * @param mixed $email
      * @return bool
      */

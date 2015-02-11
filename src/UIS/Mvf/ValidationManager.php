@@ -40,6 +40,7 @@ class ValidationManager
     protected $registeredValidators = array(
         'int' => '\UIS\Mvf\ValidatorTypes\Int',
         'digit' => '\UIS\Mvf\ValidatorTypes\Digit',
+        'float' => '\UIS\Mvf\ValidatorTypes\Float',
         'bool' => '\UIS\Mvf\ValidatorTypes\Bool',
         'string' => '\UIS\Mvf\ValidatorTypes\String',
         'email' => '\UIS\Mvf\ValidatorTypes\Email',

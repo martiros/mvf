@@ -25,6 +25,25 @@ class TestUtil extends PHPUnit_Framework_TestCase
         $this->assertFalse(Util::isDigit('5.5'));
     }
 
+    public function testFloat()
+    {
+        $this->assertTrue(Util::isFloat(0));
+        $this->assertTrue(Util::isFloat(0.0));
+        $this->assertTrue(Util::isFloat(0.2));
+        $this->assertTrue(Util::isFloat(55));
+        $this->assertTrue(Util::isFloat(55.2));
+        $this->assertTrue(Util::isFloat('0'));
+        $this->assertTrue(Util::isFloat('0.0'));
+        $this->assertTrue(Util::isFloat('0.2'));
+        $this->assertTrue(Util::isFloat('55'));
+        $this->assertTrue(Util::isFloat('55.'));
+        $this->assertTrue(Util::isFloat('55.14'));
+        $this->assertFalse(Util::isFloat('55.14.41'));
+        $this->assertFalse(Util::isFloat('a.41'));
+        $this->assertFalse(Util::isFloat('a55.14'));
+        $this->assertFalse(Util::isFloat('55.a'));
+    }
+
     public function testEmail()
     {
         $this->assertTrue(Util::isEmail('martiros.aghajanyan@gmail.com'));
