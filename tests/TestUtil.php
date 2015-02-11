@@ -2,7 +2,7 @@
 
 use \UIS\Mvf\Util;
 
-class UtilTest extends TestCase
+class TestUtil extends PHPUnit_Framework_TestCase
 {
     public function testInt()
     {

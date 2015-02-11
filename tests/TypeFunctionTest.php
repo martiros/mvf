@@ -2,7 +2,7 @@
 
 use \UIS\Mvf\ValidationManager;
 
-class TypeFunctionTest extends TestCase
+class TypeFunctionTest extends PHPUnit_Framework_TestCase
 {
     public function testValidData()
     {

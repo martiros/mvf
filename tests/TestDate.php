@@ -2,7 +2,7 @@
 
 use \UIS\Mvf\ValidationManager;
 
-class DateTest extends TestCase
+class TestDate extends PHPUnit_Framework_TestCase
 {
     public function testDate()
     {

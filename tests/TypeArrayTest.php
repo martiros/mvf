@@ -3,7 +3,7 @@
 use \UIS\Mvf\ValidationManager;
 use \UIS\Mvf\ValidationResult;
 
-class TypeArrayTest extends TestCase
+class TypeArrayTest extends PHPUnit_Framework_TestCase
 {
     public function testBase()
     {

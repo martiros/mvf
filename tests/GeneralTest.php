@@ -2,7 +2,7 @@
 
 use \UIS\Mvf\ValidationManager;
 
-class GeneralTest extends TestCase
+class GeneralTest extends PHPUnit_Framework_TestCase
 {
     public function testRequiredWithEmptyData()
     {

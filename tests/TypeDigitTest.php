@@ -2,7 +2,7 @@
 
 use \UIS\Mvf\ValidationManager;
 
-class TypeDigitTest extends TestCase
+class TypeDigitTest extends PHPUnit_Framework_TestCase
 {
     public function testValidData()
     {
