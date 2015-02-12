@@ -77,17 +77,15 @@ class ArrayValidator extends BaseValidator
                 }
             }
 
-            if ($validationResult->isValid()) {
-                $onSuccess = $this->getValidationRule()->getOnSuccessCallback();
-                if (is_callable($onSuccess)) {
-                    if( is_object($onSuccess) && ($onSuccess instanceof Closure) ){
-                        $onSuccess = $onSuccess->bindTo($this->getValidationManager());
-                        $onSuccess($arrayToValidate, $validationResult);
-                    } else {
-                        $onSuccess($arrayToValidate, $validationResult, $this->getValidationManager());
-                    }
-                }
-            }
+//            if ($validationResult->isValid()) {
+//                $validationError = $this->makeValid();
+//                $onSuccess = $this->getValidationRule()->getOnSuccessCallback();
+//                $onSuccess($arrayToValidate, $validationError, $this->getValidationManager());
+//                if (!$validationError->isValid()) {
+//                    $this->setVarValue($arrayToValidate);
+//                    return $validationError;
+//                }
+//            }
             $this->setVarValue($arrayToValidate);
             if (!$validationResult->isValid()) {
                 return $validationResult;

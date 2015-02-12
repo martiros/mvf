@@ -1,10 +1,16 @@
 <?php
 
-use \UIS\Mvf\ValidationManager;
-use \UIS\Mvf\ValidationResult;
+use UIS\Mvf\ValidationManager;
+use UIS\Mvf\ValidationError;
+use Mockery as m;
 
 class TypeArrayTest extends PHPUnit_Framework_TestCase
 {
+    public function tearDown()
+    {
+        m::close();
+    }
+
     public function testBase()
     {
         $validationRules = array(
@@ -131,6 +137,7 @@ class TypeArrayTest extends PHPUnit_Framework_TestCase
 
     public function testItemsValidator()
     {
+        $callsCount = 0;
         $testCase = $this;
         $validationRules = array(
             'name' => array(
@@ -153,8 +160,11 @@ class TypeArrayTest extends PHPUnit_Framework_TestCase
                         )
                     )
                 ),
-                'success' => function($tags, ValidationResult $result) use ($testCase){
+                'success' => function($tags, ValidationError $error) use ($testCase, &$callsCount){
+                    $callsCount++;
                     $testCase->assertTrue(count($tags) === 2);
+                    $testCase->assertTrue($error->isValid());
+                    $testCase->assertEquals(1, $callsCount);
                 }
             )
         );
@@ -188,6 +198,7 @@ class TypeArrayTest extends PHPUnit_Framework_TestCase
 
         $validator = new ValidationManager($validData, $validationRules);
         $this->assertTrue($validator->validate()->isValid());
+        $this->assertEquals(1, $callsCount);
 
         $this->assertTrue($validData['tags'][1]['name'] === 'JavaScript');
 
