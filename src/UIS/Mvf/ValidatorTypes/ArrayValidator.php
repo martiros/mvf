@@ -31,7 +31,7 @@ class ArrayValidator extends BaseValidator
         }
 
         if ($this->params['array_unique']) {
-            if (count(array_unique($arrayToValidate)) !== count($arrayToValidate)) {
+            if (count(array_unique($arrayToValidate, SORT_REGULAR)) !== count($arrayToValidate)) {
                 return $this->makeError('not_unique');
             }
         }

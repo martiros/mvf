@@ -123,14 +123,42 @@ class TypeArrayTest extends PHPUnit_Framework_TestCase
         $validData = array(
             'tags' => array( 'PHP', 'JavaScript')
         );
+        $validator = new ValidationManager($validData, $validationRules);
+        $this->assertTrue($validator->validate()->isValid());
 
         $invalidData = array(
             'tags' => array( 'PHP', 'MySql', 'PHP')
         );
+        $validator = new ValidationManager($invalidData, $validationRules);
+        $this->assertFalse($validator->validate()->isValid());
 
+        $validData = [
+            'tags' => [
+                [
+                    'key1_a' => 'value1_a',
+                    'key1_b' => 'value1_b'
+                ],
+                [
+                    'key2_a' => 'value2_a',
+                    'key2_b' => 'value2_b'
+                ]
+            ]
+        ];
         $validator = new ValidationManager($validData, $validationRules);
         $this->assertTrue($validator->validate()->isValid());
 
+        $invalidData = [
+            'tags' => [
+                [
+                    'key1_a' => 'value1_a',
+                    'key1_b' => 'value1_b'
+                ],
+                [
+                    'key1_b' => 'value1_b',
+                    'key1_a' => 'value1_a'
+                ]
+            ]
+        ];
         $validator = new ValidationManager($invalidData, $validationRules);
         $this->assertFalse($validator->validate()->isValid());
     }
