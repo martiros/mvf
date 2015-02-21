@@ -1,5 +1,4 @@
 <?php
-
 namespace UIS\Mvf\ValidatorTypes;
 
 use \UIS\Mvf\Util;
