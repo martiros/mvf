@@ -57,6 +57,7 @@ class ValidationManager
     protected $registeredFilters = array(
         'string' => '\UIS\Mvf\FilterTypes\String',
         'if' => '\UIS\Mvf\FilterTypes\IfFilter',
+        'convert' => '\UIS\Mvf\FilterTypes\Convert',
     );
 
     /**
