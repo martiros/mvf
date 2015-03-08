@@ -3,7 +3,7 @@
 use UIS\Mvf\ValidationManager;
 use UIS\Mvf\FilterTypes\Convert;
 
-class FloatTypeTest extends PHPUnit_Framework_TestCase
+class ConvertFilterTest extends PHPUnit_Framework_TestCase
 {
     public function testConvertInt()
     {
