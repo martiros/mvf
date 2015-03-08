@@ -2,14 +2,9 @@
 
 use UIS\Mvf\ValidationManager;
 use UIS\Mvf\ValidationError;
-use Mockery as m;
 
 class TypeArrayTest extends PHPUnit_Framework_TestCase
 {
-    public function tearDown()
-    {
-        m::close();
-    }
 
     public function testBase()
     {
