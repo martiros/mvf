@@ -9,9 +9,7 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "*",
-        "illuminate/foundation": "*"
+        "php": ">=5.2.0"
     },
     "autoload": {
         "psr-0": {
