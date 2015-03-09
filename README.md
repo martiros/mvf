@@ -1,4 +1,4 @@
-# mvf
+# MVF - Map Validation and Filtering.
 PHP Validation Library
 
 
