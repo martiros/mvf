@@ -8,6 +8,7 @@ class ValidationErrorsMap extends ArrayObject
 {
     public function isEmpty()
     {
-        return empty($this->getArrayCopy());
+        $arrayCopy = $this->getArrayCopy();
+        return empty($arrayCopy);
     }
 }
