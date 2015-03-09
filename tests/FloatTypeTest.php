@@ -12,7 +12,7 @@ class FloatTypeTest extends PHPUnit_Framework_TestCase
         $validator = new ValidationManager($validData, $validationRules);
         $this->assertTrue($validator->validate()->isValid());
 
-        $invalidData = ['price' => '19881c.15'];
+        $invalidData = ['price' => '19881c.16'];
         $validator = new ValidationManager($invalidData, $validationRules);
         $this->assertFalse($validator->validate()->isValid());
     }
