@@ -2,6 +2,7 @@
 
 namespace UIS\Mvf;
 
+use UIS\Mvf\Exceptions\TerminateFiltersChain;
 use \UIS\Mvf\ValidatorTypes\BaseValidator;
 use \UIS\Mvf\FilterTypes\BaseFilter;
 
@@ -58,6 +59,7 @@ class ValidationManager
         'string' => '\UIS\Mvf\FilterTypes\String',
         'if' => '\UIS\Mvf\FilterTypes\IfFilter',
         'convert' => '\UIS\Mvf\FilterTypes\Convert',
+        'terminate' => '\UIS\Mvf\FilterTypes\Terminate',
     );
 
     /**
@@ -102,8 +104,12 @@ class ValidationManager
             }
             $validateDataItem = array_key_exists($key, $this->data) ? $this->data[$key] : '';
             $filtersList = $rule->getFilters();
-            foreach ($filtersList as $filterName => $filterParams) {
-                $validateDataItem = $this->filterItem($validateDataItem, $filterName, $filterParams);
+            try {
+                foreach ($filtersList as $filterName => $filterParams) {
+                    $validateDataItem = $this->filterItem($validateDataItem, $filterName, $filterParams);
+                }
+            } catch (TerminateFiltersChain $e) {
+
             }
             $this->data[$key] = $validateDataItem;
         }
