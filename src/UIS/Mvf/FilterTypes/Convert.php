@@ -11,4 +11,17 @@ class Convert extends BaseFilter
         }
         return intval($var);
     }
+
+    public function arrayFilter($params)
+    {
+        $var = $this->getVarValue();
+        if (is_array($var)) {
+            return $var;
+        }
+
+        if (is_object($var)) {
+            return json_decode(json_encode($var), true);
+        }
+        return [];
+    }
 }

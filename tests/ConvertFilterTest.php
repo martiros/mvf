@@ -39,4 +39,42 @@ class ConvertFilterTest extends PHPUnit_Framework_TestCase
         $validator = new ValidationManager($validData, $validationRules);
         $this->assertTrue($validator->validate()->isValid());
     }
+
+    public function testConvertArray()
+    {
+        $convert = new Convert();
+
+        $convert->setVarValue('125');
+        $this->assertSame([], $convert->arrayFilter([]));
+
+        $convert->setVarValue(['a']);
+        $this->assertSame(['a'], $convert->arrayFilter([]));
+
+        $object = new stdClass();
+        $object->a = new stdClass();
+        $object->a->b = 2;
+        $object->a->c = 3;
+        $object->c = ['a' => 1, 'c' => 3];
+        $convert->setVarValue($object);
+        $this->assertSame(
+            ['a' => ['b' => 2, 'c' => 3], 'c' => ['a' => 1, 'c' => 3]],
+            $convert->arrayFilter([])
+        );
+    }
+
+    public function testConvertArrayWithMvf()
+    {
+        $validationRules = [
+            'tags' => [
+                'type' => 'array',
+                'filters' => [
+                    'convert.array' => true,
+                ]
+            ]
+        ];
+        $validData = ['tags' => 'test'];
+        $validator = new ValidationManager($validData, $validationRules);
+        $this->assertTrue($validator->validate()->isValid());
+        $this->assertEquals(['tags' => []], $validData);
+    }
 }
