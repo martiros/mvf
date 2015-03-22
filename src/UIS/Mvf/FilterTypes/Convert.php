@@ -12,6 +12,15 @@ class Convert extends BaseFilter
         return intval($var);
     }
 
+    public function floatFilter($params)
+    {
+        $var = $this->getVarValue();
+        if (is_object($var) || is_array($var)) {
+            return 0;
+        }
+        return floatval($var);
+    }
+
     public function arrayFilter($params)
     {
         $var = $this->getVarValue();

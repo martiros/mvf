@@ -77,4 +77,46 @@ class ConvertFilterTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($validator->validate()->isValid());
         $this->assertEquals(['tags' => []], $validData);
     }
+
+    public function testConvertFloat()
+    {
+        $convert = new Convert();
+
+        $convert->setVarValue('125');
+        $this->assertSame(125.0, $convert->floatFilter([]));
+
+        $convert->setVarValue('125.3');
+        $this->assertSame(125.3, $convert->floatFilter([]));
+
+        $convert->setVarValue('125d');
+        $this->assertSame(125.0, $convert->floatFilter([]));
+
+        $convert->setVarValue('125.5d');
+        $this->assertSame(125.5, $convert->floatFilter([]));
+
+        $convert->setVarValue('d125d');
+        $this->assertSame(0.0, $convert->floatFilter([]));
+
+        $convert->setVarValue('dddd');
+        $this->assertSame(0.0, $convert->floatFilter([]));
+
+        $convert->setVarValue('');
+        $this->assertSame(0.0, $convert->floatFilter([]));
+    }
+
+    public function testConvertFloatWithMvf()
+    {
+        $validationRules = [
+            'price' => [
+                'type' => 'float',
+                'filters' => [
+                    'convert.float' => true,
+                ]
+            ]
+        ];
+        $validData = ['price' => '1988.1dd'];
+        $validator = new ValidationManager($validData, $validationRules);
+        $this->assertTrue($validator->validate()->isValid());
+        $this->assertEquals(1988.1, $validData['price']);
+    }
 }
