@@ -72,4 +72,24 @@ class String extends BaseFilter
         $var = $this->getVarValue();
         return htmlspecialchars($var, ENT_QUOTES, 'UTF-8');
     }
+
+    public function getVarValue()
+    {
+        $var = parent::getVarValue();
+        if  (!$this->canConvertToString($var)) {
+            $var = '';
+        }
+        return $var;
+    }
+
+    protected function canConvertToString($item)
+    {
+        if ( (!is_array($item)) &&
+            ((!is_object($item) && settype($item, 'string') !== false) ||
+                (is_object($item) && method_exists($item, '__toString')))
+        ) {
+            return true;
+        }
+        return false;
+    }
 }
