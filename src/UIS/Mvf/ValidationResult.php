@@ -2,7 +2,9 @@
 
 namespace UIS\Mvf;
 
-class ValidationResult implements \JsonSerializable
+use JsonSerializable;
+
+class ValidationResult implements JsonSerializable
 {
     /**
      *  Errors array map
