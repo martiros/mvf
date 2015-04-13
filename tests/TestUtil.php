@@ -30,6 +30,7 @@ class TestUtil extends PHPUnit_Framework_TestCase
         $this->assertTrue(Util::isFloat(0));
         $this->assertTrue(Util::isFloat(0.0));
         $this->assertTrue(Util::isFloat(0.2));
+        $this->assertTrue(Util::isFloat(10.228000));
         $this->assertTrue(Util::isFloat(55));
         $this->assertTrue(Util::isFloat(55.2));
         $this->assertTrue(Util::isFloat('0'));
