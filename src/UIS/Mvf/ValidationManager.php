@@ -137,8 +137,9 @@ class ValidationManager
         if ($validationError->isValid()) {
             $onSuccess = $validationRule->getOnSuccessCallback();
             if (is_callable($onSuccess)) {
-//                    $onSuccess = $onSuccess->bindTo($validationRule->getValidator());
-                call_user_func($onSuccess, $validateVar, $validationError, $this);
+                if (call_user_func($onSuccess, $validateVar, $validationError, $this) === false) {
+                    $validationError->setError($validatorObject->getValidationRule()->getError());
+                }
             }
         }
         return $validationError;
