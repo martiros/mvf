@@ -52,7 +52,8 @@ class ValidationManager
         'array' => '\UIS\Mvf\ValidatorTypes\ArrayValidator',
         'enum' => '\UIS\Mvf\ValidatorTypes\Enum',
         'phone' => '\UIS\Mvf\ValidatorTypes\Phone',
-        'function' => '\UIS\Mvf\ValidatorTypes\FunctionValidator'
+        'function' => '\UIS\Mvf\ValidatorTypes\FunctionValidator',
+        'username' => '\UIS\Mvf\ValidatorTypes\Username',
     );
 
     protected $registeredFilters = array(
