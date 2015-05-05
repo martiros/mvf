@@ -1,8 +1,8 @@
 /vendor
 -.DS_Store
 -Thumbs.db
--composer.lock
--composer.phar
+composer.phar
+composer.lock
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
 
