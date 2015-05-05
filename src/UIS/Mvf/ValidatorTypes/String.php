@@ -10,7 +10,6 @@ class String extends BaseValidator
         'regexp' => null,
         'max_length' => null,
         'min_length' => null,
-        'encoding' => 'UTF-8' // Validator will replace all non UTF-8 characters, set null to disable this feature
     );
 
     public function validate()
@@ -19,7 +18,7 @@ class String extends BaseValidator
         if (is_string($valueToValidate) === false) {
             return $this->makeError();
         }
-        $this->correctEncoding();
+
         if ($this->rule->isRequired()) {
             $validationResult = $this->validateRequired();
             if (!$validationResult->isValid()) {
@@ -42,22 +41,5 @@ class String extends BaseValidator
             }
         }
         return $this->makeValid();
-    }
-
-    protected function correctEncoding()
-    {
-        // @TODO: Implement correct encoding
-        return;
-        if ($this->params['encoding']==='UTF-8') {
-            $string = $this->getVarValue();
-            $string = preg_replace('/[\xF0-\xF7].../s', '', $string); // remove all not UTF-8 characters and ( hard code for utf_general_ci, FIXME )
-            $string = preg_replace('/[^(\x20-\x7F)]*/','', $string); // strip all 4byte strings (emoji) FIXME
-            $this->setVarValue($string);
-        }
-    }
-
-    public function allowChangeData()
-    {
-        return true;
     }
 }
