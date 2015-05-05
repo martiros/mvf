@@ -38,7 +38,13 @@ class ValidationManager
      */
     protected $filter = true;
 
-    protected $registeredValidators = array(
+    /**
+     *  Array of registered validators, where
+     *  array key is validator name, array value
+     *  validator class name.
+     * @var  array
+     */
+    protected static $registeredValidators = [
         'int' => '\UIS\Mvf\ValidatorTypes\Int',
         'digit' => '\UIS\Mvf\ValidatorTypes\Digit',
         'float' => '\UIS\Mvf\ValidatorTypes\Float',
@@ -54,14 +60,14 @@ class ValidationManager
         'phone' => '\UIS\Mvf\ValidatorTypes\Phone',
         'function' => '\UIS\Mvf\ValidatorTypes\FunctionValidator',
         'username' => '\UIS\Mvf\ValidatorTypes\Username',
-    );
+    ];
 
-    protected $registeredFilters = array(
+    protected static $registeredFilters = [
         'string' => '\UIS\Mvf\FilterTypes\String',
         'if' => '\UIS\Mvf\FilterTypes\IfFilter',
         'convert' => '\UIS\Mvf\FilterTypes\Convert',
         'terminate' => '\UIS\Mvf\FilterTypes\Terminate',
-    );
+    ];
 
     /**
      * @return ValidationResult
@@ -232,44 +238,30 @@ class ValidationManager
     }
 
     /**
+     * Register validator class
+     * @param   string $validatorName
+     * @param   string $validatorClassNamgit s
+     * @return  void
+     */
+    public static function registerValidator($validatorName, $validatorClassName)
+    {
+        self::$registeredValidators[$validatorName] = $validatorClassName;
+    }
+
+    /**
      * Register filter class
      * @param   string $filterName
      * @param   string $filterClassName
      * @return  void
      */
-    public function registerFilter($filterName, $filterClassName)
+    public static function registerFilter($filterName, $filterClassName)
     {
-        $this->registeredFilters[$filterName] = $filterClassName;
+        self::$registeredFilters[$filterName] = $filterClassName;
     }
 
     /******************************************************************************************************************/
     /******************************************************************************************************************/
     /******************************************************************************************************************/
-
-    /**
-     *  Array of registered validators, where
-     *  array key is falidator name, array value
-     *  validator class name
-     * @var  array
-     */
-    // private $registeredValidators = array();
-
-    /**
-     * Register validator class
-     * @param   string $validatorName
-     * @param   string $validatorClassName
-     * @return  void
-     */
-    /*
-    public function registerFilter( $validatorName , $validatorClassName )  {
-        $this->registeredValidators[ $validatorName ] = $validatorClassName;
-    }
-    */
-
-
-    //----------------------------------------------------------------------------------
-
-
     /******************************************************************************************************************/
     /******************************************************************************************************************/
     /******************************************************************************************************************/
@@ -377,8 +369,8 @@ class ValidationManager
         }
 
         $validatorObj = null;
-        if (isset($this->registeredValidators[$type])) {
-            $validatorClass = $this->registeredValidators[$type];
+        if (isset(self::$registeredValidators[$type])) {
+            $validatorClass = self::$registeredValidators[$type];
         } else {
             $validatorClass = $type;
         }
@@ -400,8 +392,8 @@ class ValidationManager
         $names = explode('.', $filterName);
         $filterName = $names[0];
 
-        if (isset($this->registeredFilters[$filterName])) {
-            $filterClassName = $this->registeredFilters[$filterName];
+        if (isset(self::$registeredFilters[$filterName])) {
+            $filterClassName = self::$registeredFilters[$filterName];
         } else {
             $filterClassName = $filterName;
         }
