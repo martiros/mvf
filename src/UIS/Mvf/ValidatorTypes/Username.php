@@ -10,6 +10,31 @@ class Username extends BaseValidator
         'max_length' => 40
     ];
 
+    protected $defaultError = '{validation.error.username.invalid}';
+
+    protected $defaultCustomErrors = [
+        'min_length' => [
+            'message' => '{validation.error.username.min_length}',
+            'overwrite' => false,
+        ],
+        'max_length' => [
+            'message' => '{validation.error.username.max_length}',
+            'overwrite' => false,
+        ],
+        'first_char' => [
+            'message' => '{validation.error.username.first_char}',
+            'overwrite' => false,
+        ],
+        'end_char' => [
+            'message' => '{validation.error.username.end_char}',
+            'overwrite' => false,
+        ],
+        'punctuation' => [
+            'message' => '{validation.error.username.punctuation}',
+            'overwrite' => false,
+        ],
+    ];
+
     public function validate()
     {
         $username = $this->getVarValue();

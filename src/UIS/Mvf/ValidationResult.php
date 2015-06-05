@@ -102,7 +102,7 @@ class ValidationResult implements JsonSerializable
 
         foreach(  $matches[0]  AS $key => $value ) {
             $key = substr( $value , 1 , strlen ( $value )-2  ); // returns "d"
-            $mlValue= empty($errorParams) ? trans( $key ) : trans( $key, $errorParams );
+            $mlValue= empty($errorParams) ? ValidationManager::trans($key) : ValidationManager::trans($key, $errorParams);
             $string =  str_replace (   "{".$key."}"  ,  $mlValue   , $string );
         }
         return $string;

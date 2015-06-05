@@ -19,6 +19,12 @@ class ValidationError
             return $this->requiredError;
         }
 
+//        if (!empty($this->errorsArray)) {
+//            die(implode( $this->errorsArray , ', '  ));
+//            var_dump($this->mainError);  var_dump($this->errorsArray); die;
+//        }
+
+
         if ( !empty( $this->errorsArray ) ) {
             return implode( $this->errorsArray , ', '  );
         }
@@ -31,7 +37,8 @@ class ValidationError
         return $this;
     }
 
-    public function addCustomeError( $key , $value ){
+    public function addCustomError( $key , $value ){
+
         if( $value != null ){
             $this->errorsArray[ $key ] = $value;
         }

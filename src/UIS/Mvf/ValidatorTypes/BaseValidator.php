@@ -1,17 +1,32 @@
 <?php
-
 namespace UIS\Mvf\ValidatorTypes;
 
 use UIS\Mvf\ValidationError;
 use UIS\Mvf\ConfigItem;
 use UIS\Mvf\ValidationManager;
+use InvalidArgumentException;
 
 abstract class BaseValidator
 {
     /**
      * @var array
      */
-    protected $params = array();
+    protected $params = [];
+
+    /**
+     * @var string
+     */
+    protected $defaultRequiredError = null;
+
+    /**
+     * @var string
+     */
+    protected $defaultError = 'Invalid data';
+
+    /**
+     * @var array
+     */
+    protected $defaultCustomErrors = [];
 
     /**
      * @var \UIS\Mvf\ValidationError
@@ -35,10 +50,7 @@ abstract class BaseValidator
         $this->resetError();
     }
 
-    protected function resetError()
-    {
-        $this->error = new ValidationError();
-    }
+
 
     /**
      * @param array $params
@@ -79,51 +91,6 @@ abstract class BaseValidator
         return $this->validationManager;
     }
 
-    /**
-     * @return bool
-     */
-    public function isEmpty()
-    {
-        $varValue = $this->getVarValue();
-        if( $varValue === '' || $varValue===null ){
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * @return \UIS\Mvf\ValidationError
-     */
-    abstract public function validate();
-
-    /**
-     * @return \UIS\Mvf\ValidationError
-     */
-    public function validateRequired()
-    {
-        if ($this->isEmpty()) {
-            $this->error->setError($this->rule->getRequiredError());
-        }
-        return $this->error;
-    }
-
-    public function makeError()
-    {
-        $this->error->setError($this->rule->getError());
-        return $this->error;
-    }
-
-    public function makeValid()
-    {
-        $this->resetError();
-        return $this->error;
-    }
-
-    public function allowChangeData()
-    {
-        return false;
-    }
-
     /******************************************************************************************************************/
     /******************************************************************************************************************/
     /******************************************************************************************************************/
@@ -151,7 +118,6 @@ abstract class BaseValidator
         $this->mvfConfigItem = $config;
     }
 
-
     protected $varValue;
 
     public function getVarValue() {
@@ -161,8 +127,6 @@ abstract class BaseValidator
     public function setVarValue($newValue) {
         $this->varValue = $newValue;
     }
-
-
 
     /**
      * Is email required
@@ -175,14 +139,6 @@ abstract class BaseValidator
         $this->required = $newVal;
     }
 
-
-
-    public function issetVar()
-    {
-        $result = ( isset(  $this->varValue  ) ) ?  true  : false;
-        return $result;
-    }
-
     public function setMvf($mvf)
     {
         $this->mvf = $mvf;
@@ -193,10 +149,103 @@ abstract class BaseValidator
         return $this->mvf;
     }
 
+
+
+    /****************************************************************************************************/
+    /****************************************************************************************************/
+    /****************************************************************************************************/
+
+    /**
+     * @return \UIS\Mvf\ValidationError
+     */
+    abstract public function validate();
+
+    /**
+     * @return \UIS\Mvf\ValidationError
+     */
+    public function validateRequired()
+    {
+        if ($this->isEmpty()) {
+            $this->error->setError($this->rule->getRequiredError());
+        }
+        return $this->error;
+    }
+
+    public function makeValid()
+    {
+        $this->resetError();
+        return $this->error;
+    }
+
+    protected function resetError()
+    {
+        $this->error = new ValidationError();
+    }
+
+    public function makeError($customError = null)
+    {
+        $this->error->setError($this->getErrorMessage());
+        if ($customErrorMessage = $this->getCustomErrorMessage($customError)) {
+            $this->error->addCustomError($customError, $customErrorMessage);
+        }
+        return $this->error;
+    }
+
+    /**
+     * @return string
+     * @throws InvalidArgumentException
+     */
+    public function getErrorMessage()
+    {
+        if ($this->rule->getError() !== true) {
+            return $this->rule->getError();
+        } else if ($this->defaultError !== null){
+            return $this->defaultError;
+        }
+        throw new InvalidArgumentException('MVF - Default error not found for validator - ' . get_class($this));
+    }
+
+    public function getCustomErrorMessage($customError = null)
+    {
+        if ($customError === null) {
+            return null;
+        }
+
+        if ($this->rule->isSetCustomError($customError)) {
+            return $this->rule->getCustomError($customError);
+        } else if (isset($this->defaultCustomErrors[$customError])) {
+            if ($this->defaultCustomErrors[$customError]['overwrite'] === true || $this->rule->getError() === true) {
+                return $this->defaultCustomErrors[$customError]['message'];
+            }
+            return $this->rule->getError();
+        }
+        return null;
+    }
+
+    public function extendDefaultCustomErrors(array $defaultCustomErrors)
+    {
+        $this->defaultCustomErrors = array_merge($this->defaultCustomErrors, $defaultCustomErrors);
+    }
+
+    public function allowChangeData()
+    {
+        return false;
+    }
+
     public function passEmptyData()
     {
         return false;
     }
 
-
+    /**
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        $varValue = $this->getVarValue();
+        if( $varValue === '' || $varValue===null ){
+            return true;
+        }
+        return false;
+    }
 }

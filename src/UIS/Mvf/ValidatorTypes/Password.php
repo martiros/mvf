@@ -1,54 +1,101 @@
 <?php
-
 namespace UIS\Mvf\ValidatorTypes;
 
-use \UIS\Mvf\Util;
+use UIS\Mvf\Util;
+use InvalidArgumentException;
 
 class Password extends BaseValidator
 {
-    protected $params = array(
+    protected $params = [
         'min_length' => 6,
-        'max_length' => null,
-        'scLevel' => 'low',
-    );
+        'max_length' => 100,
+        'security_level' => 'low',
+    ];
 
-    protected $scLevelsList = array(
+    protected $securityLevels = [
         'low',
         'medium',
         'height'
-    );
+    ];
+
+    protected $defaultError = '{validation.error.password.invalid}';
+
+    protected $defaultCustomErrors = [
+        'min_length' => [
+            'message' => '{validation.error.password.min_length}',
+            'overwrite' => false,
+        ],
+        'max_length' => [
+            'message' => '{validation.error.password.max_length}',
+            'overwrite' => false,
+        ],
+        'security_level_not_medium' => [
+            'message' => '{validation.error.password.security_level_not_medium}',
+            'overwrite' => false,
+        ],
+        'security_level_not_height' => [
+            'message' => '{validation.error.password.security_level_not_height}',
+            'overwrite' => false,
+        ],
+    ];
 
     public function validate()
     {
-        $valueToValidate = $this->getVarValue();
         if ($this->isValidLowPassword() === false) {
             return $this->makeError();
         }
 
-        if ($this->params['scLevel'] === 'medium' && $this->isValidMediumPassword() === false) {
-            return $this->makeError('notStrongMediumPassword');
+        if ($error = $this->validatePasswordSecurityLevel()) {
+            return $error;
         }
 
-        if ($this->params['scLevel'] === 'height' && $this->isValidHeightPassword() === false) {
-            return $this->makeError('notStrongHeightPassword');
+        if ($error = $this->validatePasswordLength()) {
+            return $error;
         }
+        return $this->makeValid();
+    }
 
-        $strLength = Util::strLen($valueToValidate);
+    /**
+     * @return \UIS\Mvf\ValidationError
+     */
+    protected function validatePasswordLength()
+    {
+        $password = $this->getVarValue();
+        $strLength = Util::strLen($password);
+
+        // Validate max length of the password.
         if ($this->params['min_length'] !== null && $this->params['min_length'] > $strLength) {
             return $this->makeError('min_length');
         }
 
+        // Validate max length of the password.
         if ($this->params['max_length'] !== null && $this->params['max_length'] < $strLength) {
             return $this->makeError('max_length');
         }
-        return $this->makeValid();
+        return null;
+    }
+
+    protected function validatePasswordSecurityLevel()
+    {
+        if (!in_array($this->params['security_level'], $this->securityLevels)) {
+            throw new InvalidArgumentException("Invalid parameter security_level-" . $this->params['security_level'] . '. Class - ' . __CLASS__);
+        }
+
+        if ($this->params['security_level'] === 'medium' && $this->isValidMediumPassword() === false) {
+            return $this->makeError('security_level_not_medium');
+        }
+
+        if ($this->params['security_level'] === 'height' && $this->isValidHeightPassword() === false) {
+            return $this->makeError('security_level_not_height');
+        }
+        return null;
     }
 
     /**
      * Check is password valid'
      * @return bool
      */
-    private function isValidLowPassword()
+    protected function isValidLowPassword()
     {
         $value = $this->getVarValue();
         if (Util::isString($value) === false) {
@@ -61,7 +108,7 @@ class Password extends BaseValidator
      * Check is password level medium
      * @return bool
      */
-    public function isValidMediumPassword()
+    protected function isValidMediumPassword()
     {
         if ($this->isContentNumbers() === true && $this->isContentLetters() === true) {
             return true;
@@ -73,7 +120,7 @@ class Password extends BaseValidator
      * Check is password level height
      * @return bool
      */
-    public function isValidHeightPassword()
+    protected function isValidHeightPassword()
     {
         if ($this->isContentNumbers() === true
             && $this->isContentLetters() === true
@@ -88,10 +135,10 @@ class Password extends BaseValidator
      * Check is password content numbers
      * @return bool
      */
-    private function isContentNumbers()
+    protected function isContentNumbers()
     {
-        $valueToValidate = $this->getVarValue();
-        if (preg_match('/[0-9]{1,}/i', $valueToValidate)) {
+        $password = $this->getVarValue();
+        if (preg_match('/[0-9]{1,}/i', $password)) {
             return true;
         }
         return false;
@@ -101,10 +148,10 @@ class Password extends BaseValidator
      * Check is password content letters
      * @return bool
      */
-    private function isContentLetters()
+    protected function isContentLetters()
     {
-        $valueToValidate = $this->getVarValue();
-        if (preg_match('/[A-Z]{1,}/i', $valueToValidate)) {
+        $password = $this->getVarValue();
+        if (preg_match('/[A-Z]{1,}/i', $password)) {
             return true;
         }
         return false;
@@ -114,10 +161,10 @@ class Password extends BaseValidator
      * Check is password content special chart
      * @return bool
      */
-    private function isContentSpecialChars()
+    protected function isContentSpecialChars()
     {
-        $valueToValidate = $this->getVarValue();
-        if (preg_match('/[^a-z0-9]{1,}/i', $valueToValidate)) {
+        $password = $this->getVarValue();
+        if (preg_match('/[^a-z0-9]{1,}/i', $password)) {
             return true;
         }
         return false;

@@ -335,16 +335,24 @@ class ValidationManager
      *  Translate function name
      * @var  string
      */
-    private $transFunction = 'trans';
+    protected static $transFunction = null;
 
 
     /**
      *  Set translate function name
      * @return void
      */
-    public function setTransFunction($transFunction)
+    public static function setTransFunction($transFunction)
     {
-        $this->transFunction = $transFunction;
+        self::$transFunction = $transFunction;
+    }
+
+    public static function trans($transKey)
+    {
+        if (self::$transFunction === null) {
+            return $transKey;
+        }
+        return call_user_func_array(self::$transFunction, func_get_args());
     }
 
     /******************************************************************************************************************/

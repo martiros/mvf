@@ -1,16 +1,32 @@
 <?php
-
 namespace UIS\Mvf\ValidatorTypes;
 
-use \UIS\Mvf\Util;
+use UIS\Mvf\Util;
 
 class String extends BaseValidator
 {
-    protected $params = array(
+    protected $params = [
         'regexp' => null,
         'max_length' => null,
         'min_length' => null,
-    );
+    ];
+
+    protected $defaultError = '{validation.error.string.invalid}';
+
+    protected $defaultCustomErrors = [
+        'min_length' => [
+            'message' => '{validation.error.string.min_length}',
+            'overwrite' => false,
+        ],
+        'max_length' => [
+            'message' => '{validation.error.string.max_length}',
+            'overwrite' => false,
+        ],
+        'regexp' => [
+            'message' => '{validation.error.string.regexp}',
+            'overwrite' => false,
+        ],
+    ];
 
     public function validate()
     {

@@ -101,7 +101,7 @@ class ConfigItem
             $this->defaultValueExists = true;
         }
 
-        $this->error = isset($options['error']) ? $options['error'] : 'error'; //@TODO: SET DEFAULT VALUE
+        $this->error = isset($options['error']) ? $options['error'] : true;
 
         if (isset($options['required']) && $options['required'] == true) {
             $this->required = $options['required'];
@@ -210,6 +210,11 @@ class ConfigItem
             return $this->customErrors[$errorKey];
         }
         return null;
+    }
+
+    public function getCustomErrors()
+    {
+        return $this->customErrors;
     }
 
     /**
