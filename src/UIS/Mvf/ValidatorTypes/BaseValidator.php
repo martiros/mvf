@@ -1,10 +1,12 @@
 <?php
+
 namespace UIS\Mvf\ValidatorTypes;
 
 use UIS\Mvf\ValidationError;
 use UIS\Mvf\ConfigItem;
 use UIS\Mvf\ValidationManager;
 use InvalidArgumentException;
+use UnexpectedValueException;
 
 abstract class BaseValidator
 {
@@ -50,8 +52,6 @@ abstract class BaseValidator
         $this->resetError();
     }
 
-
-
     /**
      * @param array $params
      * @throws \UnexpectedValueException
@@ -60,7 +60,7 @@ abstract class BaseValidator
     {
         foreach ($params as $key => $param) {
             if (!array_key_exists($key, $this->params)) {
-                throw new \UnexpectedValueException("Invalid validator parameter-{$key}" );
+                throw new UnexpectedValueException("Invalid validator parameter-{$key}");
             }
             $this->params[$key] = $param;
         }
@@ -105,31 +105,35 @@ abstract class BaseValidator
     /**
      *  @return \UIS\Mvf\ConfigItem
      */
-    public function getConfig() {
-        return 	$this->mvfConfigItem;
+    public function getConfig()
+    {
+        return    $this->mvfConfigItem;
     }
 
     /**
-     *  Set validator config
+     *  Set validator config.
      *  @param     UIS_Mvf_Config_Item   $config
      *  @return    void
      */
-    public function setConfig ( $config ){
+    public function setConfig($config)
+    {
         $this->mvfConfigItem = $config;
     }
 
     protected $varValue;
 
-    public function getVarValue() {
+    public function getVarValue()
+    {
         return $this->varValue;
     }
 
-    public function setVarValue($newValue) {
+    public function setVarValue($newValue)
+    {
         $this->varValue = $newValue;
     }
 
     /**
-     * Is email required
+     * Is email required.
      * @var bool
      */
     protected $required = false;
@@ -149,8 +153,6 @@ abstract class BaseValidator
         return $this->mvf;
     }
 
-
-
     /****************************************************************************************************/
     /****************************************************************************************************/
     /****************************************************************************************************/
@@ -168,12 +170,14 @@ abstract class BaseValidator
         if ($this->isEmpty()) {
             $this->error->setError($this->rule->getRequiredError());
         }
+
         return $this->error;
     }
 
     public function makeValid()
     {
         $this->resetError();
+
         return $this->error;
     }
 
@@ -188,6 +192,7 @@ abstract class BaseValidator
         if ($customErrorMessage = $this->getCustomErrorMessage($customError)) {
             $this->error->addCustomError($customError, $customErrorMessage);
         }
+
         return $this->error;
     }
 
@@ -199,27 +204,29 @@ abstract class BaseValidator
     {
         if ($this->rule->getError() !== true) {
             return $this->rule->getError();
-        } else if ($this->defaultError !== null){
+        } elseif ($this->defaultError !== null) {
             return $this->defaultError;
         }
-        throw new InvalidArgumentException('MVF - Default error not found for validator - ' . get_class($this));
+        throw new InvalidArgumentException('MVF - Default error not found for validator - '.get_class($this));
     }
 
     public function getCustomErrorMessage($customError = null)
     {
         if ($customError === null) {
-            return null;
+            return;
         }
 
         if ($this->rule->isSetCustomError($customError)) {
             return $this->rule->getCustomError($customError);
-        } else if (isset($this->defaultCustomErrors[$customError])) {
+        } elseif (isset($this->defaultCustomErrors[$customError])) {
             if ($this->defaultCustomErrors[$customError]['overwrite'] === true || $this->rule->getError() === true) {
                 return $this->defaultCustomErrors[$customError]['message'];
             }
+
             return $this->rule->getError();
         }
-        return null;
+
+        return;
     }
 
     public function extendDefaultCustomErrors(array $defaultCustomErrors)
@@ -243,9 +250,10 @@ abstract class BaseValidator
     public function isEmpty()
     {
         $varValue = $this->getVarValue();
-        if( $varValue === '' || $varValue===null ){
+        if ($varValue === '' || $varValue === null) {
             return true;
         }
+
         return false;
     }
 }

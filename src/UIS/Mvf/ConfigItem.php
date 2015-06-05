@@ -4,18 +4,18 @@ namespace UIS\Mvf;
 
 /**
  * Filtering and validating configuration
- * single item for variable
+ * single item for variable.
  */
 class ConfigItem
 {
     /**
-     *  Validator config key
+     *  Validator config key.
      * @var string
      */
     protected $key = null;
 
     /**
-     *  Validator type
+     *  Validator type.
      * @var     string
      */
     protected $type = null;
@@ -31,37 +31,37 @@ class ConfigItem
     protected $defaultValueExists = false;
 
     /**
-     *  Error if required
-     * @var  string|boolean
+     * Error if required.
+     * @var  string|bool
      */
     protected $required = null;
 
     /**
-     *  Error message
-     * @var  string|boolean
+     * Error message.
+     * @var  string|bool
      */
     protected $error = null;
 
     /**
-     *  Custom errors list
-     * @var   array $customErrors
+     * Custom errors list.
+     * @var   array
      */
-    protected $customErrors = array();
+    protected $customErrors = [];
 
     /**
-     *  Validator params
+     * Validator params.
      * @var    array
      */
-    protected $params = array();
+    protected $params = [];
 
     /**
-     *  Filters list
+     * Filters list.
      * @var array
      */
-    protected $filters = array();
+    protected $filters = [];
 
     /**
-     * Validation success callback
+     * Validation success callback.
      * @var \Closure
      */
     protected $success = null;
@@ -82,7 +82,7 @@ class ConfigItem
             $options,
             function (&$item, $key) use ($validationManager) {
                 if ($key !== 'function' && $key !== 'success' && is_object($item) && ($item instanceof Closure)) {
-//                    $item = $item->bindTo($validationManager);
+                    // $item = $item->bindTo($validationManager);
                     $item = call_user_func($item, $validationManager);
                 }
             }
@@ -123,7 +123,7 @@ class ConfigItem
     }
 
     /**
-     *  Get item key
+     * Get item key.
      * @return string
      */
     public function getKey()
@@ -132,7 +132,7 @@ class ConfigItem
     }
 
     /**
-     *  Get validator type
+     * Get validator type.
      * @return string
      */
     public function getType()
@@ -157,19 +157,20 @@ class ConfigItem
     }
 
     /**
-     *  Check is variable required
-     * @return boolean True if required, else return false
+     * Check is variable required.
+     * @return bool True if required, else return false
      */
     public function isRequired()
     {
         if ($this->required === null) {
             return false;
         }
+
         return true;
     }
 
     /**
-     *  Get required error
+     * Get required error.
      * @return string
      */
     public function getRequiredError()
@@ -178,7 +179,7 @@ class ConfigItem
     }
 
     /**
-     *  Get validator main error
+     * Get validator main error.
      * @return string
      */
     public function getError()
@@ -187,20 +188,21 @@ class ConfigItem
     }
 
     /**
-     *  Check if custom error exists
+     * Check if custom error exists.
      * @param string $errorKey
-     * @return boolean True if exists, else return false
+     * @return bool True if exists, else return false
      */
     public function isSetCustomError($errorKey)
     {
         if (isset($this->customErrors[$errorKey])) {
             return true;
         }
+
         return false;
     }
 
     /**
-     *  Get custom error message by key
+     * Get custom error message by key.
      * @param string $errorKey
      * @return string|null
      */
@@ -209,7 +211,8 @@ class ConfigItem
         if (isset($this->customErrors[$errorKey])) {
             return $this->customErrors[$errorKey];
         }
-        return null;
+
+        return;
     }
 
     public function getCustomErrors()
@@ -218,7 +221,7 @@ class ConfigItem
     }
 
     /**
-     *  Get validator parameters
+     * Get validator parameters.
      * @return array
      */
     public function getParams()
@@ -227,21 +230,22 @@ class ConfigItem
     }
 
     /**
-     *  Check is set filters
-     * @return boolean
+     * Check is set filters.
+     * @return bool
      */
     public function isSetFilters()
     {
         if (empty($this->filters)) {
             return false;
         }
+
         return true;
     }
 
     /**
-     *  Return array of filters, where
-     *  key is filter name, value is
-     *  filter parameters
+     * Return array of filters, where
+     * key is filter name, value is
+     * filter parameters.
      * @return array
      */
     public function getFilters()

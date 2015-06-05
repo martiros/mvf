@@ -1,4 +1,5 @@
 <?php
+
 use UIS\Mvf\ValidationManager;
 
 class TypeUsernameTest extends PHPUnit_Framework_TestCase

@@ -2,14 +2,14 @@
 
 namespace UIS\Mvf\ValidatorTypes;
 
-use \UIS\Mvf\Util;
+use UIS\Mvf\Util;
 
 class Digit extends BaseValidator
 {
-    protected $params = array(
+    protected $params = [
         'max_length' => null,
         'min_length' => null,
-    );
+    ];
 
     public function validate()
     {
@@ -30,6 +30,7 @@ class Digit extends BaseValidator
         if ($this->params['max_length'] !== null && $strLength > $this->params['max_length']) {
             return $this->makeError('max_length');
         }
+
         return $this->makeValid();
     }
 }

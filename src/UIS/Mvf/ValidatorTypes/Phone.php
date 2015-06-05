@@ -1,4 +1,5 @@
 <?php
+
 namespace UIS\Mvf\ValidatorTypes;
 
 class Phone extends BaseValidator
@@ -12,9 +13,10 @@ class Phone extends BaseValidator
             return $this->makeError();
         }
 
-        if (!preg_match("#^[0-9]{6,20}$#", $valueToValidate)) {
+        if (!preg_match('#^[0-9]{6,20}$#', $valueToValidate)) {
             return $this->makeError();
         }
+
         return $this->makeValid();
     }
 }

@@ -2,14 +2,14 @@
 
 namespace UIS\Mvf\ValidatorTypes;
 
-use \UIS\Mvf\Util;
+use UIS\Mvf\Util;
 
 class Date extends BaseValidator
 {
-    protected $params = array(
+    protected $params = [
         'max_date' => null,
         'min_date' => null,
-    );
+    ];
 
     public function validate()
     {
@@ -29,6 +29,7 @@ class Date extends BaseValidator
                 return $this->makeError('max_date');
             }
         }
+
         return $this->makeValid();
     }
 }

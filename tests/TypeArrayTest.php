@@ -5,21 +5,20 @@ use UIS\Mvf\ValidationError;
 
 class TypeArrayTest extends PHPUnit_Framework_TestCase
 {
-
     public function testBase()
     {
-        $validationRules = array(
-            'tags' => array(
-                'type' => 'array'
-            )
-        );
-        $validData = array(
-            'tags' => array( 'PHP', 'MySql', 'JavaScript')
-        );
+        $validationRules = [
+            'tags' => [
+                'type' => 'array',
+            ],
+        ];
+        $validData = [
+            'tags' => ['PHP', 'MySql', 'JavaScript'],
+        ];
 
-        $invalidData = array(
-            'tags' => 'just string'
-        );
+        $invalidData = [
+            'tags' => 'just string',
+        ];
 
         $validator = new ValidationManager($validData, $validationRules);
         $this->assertTrue($validator->validate()->isValid());
@@ -30,21 +29,21 @@ class TypeArrayTest extends PHPUnit_Framework_TestCase
 
     public function testMinLength()
     {
-        $validationRules = array(
-            'tags' => array(
+        $validationRules = [
+            'tags' => [
                 'type' => 'array',
-                'params' => array(
-                    'min_length' => 2
-                )
-            )
-        );
-        $validData = array(
-            'tags' => array( 'PHP', 'MySql', 'JavaScript')
-        );
+                'params' => [
+                    'min_length' => 2,
+                ],
+            ],
+        ];
+        $validData = [
+            'tags' => ['PHP', 'MySql', 'JavaScript'],
+        ];
 
-        $invalidData = array(
-            'tags' => array( 'PHP')
-        );
+        $invalidData = [
+            'tags' => ['PHP'],
+        ];
 
         $validator = new ValidationManager($validData, $validationRules);
         $this->assertTrue($validator->validate()->isValid());
@@ -55,21 +54,21 @@ class TypeArrayTest extends PHPUnit_Framework_TestCase
 
     public function testMaxLength()
     {
-        $validationRules = array(
-            'tags' => array(
+        $validationRules = [
+            'tags' => [
                 'type' => 'array',
-                'params' => array(
-                    'max_length' => 2
-                )
-            )
-        );
-        $validData = array(
-            'tags' => array( 'PHP')
-        );
+                'params' => [
+                    'max_length' => 2,
+                ],
+            ],
+        ];
+        $validData = [
+            'tags' => ['PHP'],
+        ];
 
-        $invalidData = array(
-            'tags' => array( 'PHP', 'MySql', 'JavaScript')
-        );
+        $invalidData = [
+            'tags' => ['PHP', 'MySql', 'JavaScript'],
+        ];
 
         $validator = new ValidationManager($validData, $validationRules);
         $this->assertTrue($validator->validate()->isValid());
@@ -80,23 +79,23 @@ class TypeArrayTest extends PHPUnit_Framework_TestCase
 
     public function testAllowedValues()
     {
-        $validationRules = array(
-            'tags' => array(
+        $validationRules = [
+            'tags' => [
                 'type' => 'array',
-                'params' => array(
-                    'allowed_values' => array(
-                        'PHP', 'MySql', 'JavaScript'
-                    )
-                )
-            )
-        );
-        $validData = array(
-            'tags' => array( 'PHP', 'JavaScript')
-        );
+                'params' => [
+                    'allowed_values' => [
+                        'PHP', 'MySql', 'JavaScript',
+                    ],
+                ],
+            ],
+        ];
+        $validData = [
+            'tags' => ['PHP', 'JavaScript'],
+        ];
 
-        $invalidData = array(
-            'tags' => array( 'PHP', 'MySql', 'Java')
-        );
+        $invalidData = [
+            'tags' => ['PHP', 'MySql', 'Java'],
+        ];
 
         $validator = new ValidationManager($validData, $validationRules);
         $this->assertTrue($validator->validate()->isValid());
@@ -107,23 +106,23 @@ class TypeArrayTest extends PHPUnit_Framework_TestCase
 
     public function testArrayUnique()
     {
-        $validationRules = array(
-            'tags' => array(
+        $validationRules = [
+            'tags' => [
                 'type' => 'array',
-                'params' => array(
-                    'array_unique' => true
-                )
-            )
-        );
-        $validData = array(
-            'tags' => array( 'PHP', 'JavaScript')
-        );
+                'params' => [
+                    'array_unique' => true,
+                ],
+            ],
+        ];
+        $validData = [
+            'tags' => ['PHP', 'JavaScript'],
+        ];
         $validator = new ValidationManager($validData, $validationRules);
         $this->assertTrue($validator->validate()->isValid());
 
-        $invalidData = array(
-            'tags' => array( 'PHP', 'MySql', 'PHP')
-        );
+        $invalidData = [
+            'tags' => ['PHP', 'MySql', 'PHP'],
+        ];
         $validator = new ValidationManager($invalidData, $validationRules);
         $this->assertFalse($validator->validate()->isValid());
 
@@ -131,13 +130,13 @@ class TypeArrayTest extends PHPUnit_Framework_TestCase
             'tags' => [
                 [
                     'key1_a' => 'value1_a',
-                    'key1_b' => 'value1_b'
+                    'key1_b' => 'value1_b',
                 ],
                 [
                     'key2_a' => 'value2_a',
-                    'key2_b' => 'value2_b'
-                ]
-            ]
+                    'key2_b' => 'value2_b',
+                ],
+            ],
         ];
         $validator = new ValidationManager($validData, $validationRules);
         $this->assertTrue($validator->validate()->isValid());
@@ -146,13 +145,13 @@ class TypeArrayTest extends PHPUnit_Framework_TestCase
             'tags' => [
                 [
                     'key1_a' => 'value1_a',
-                    'key1_b' => 'value1_b'
+                    'key1_b' => 'value1_b',
                 ],
                 [
                     'key1_b' => 'value1_b',
-                    'key1_a' => 'value1_a'
-                ]
-            ]
+                    'key1_a' => 'value1_a',
+                ],
+            ],
         ];
         $validator = new ValidationManager($invalidData, $validationRules);
         $this->assertFalse($validator->validate()->isValid());
@@ -162,62 +161,62 @@ class TypeArrayTest extends PHPUnit_Framework_TestCase
     {
         $callsCount = 0;
         $testCase = $this;
-        $validationRules = array(
-            'name' => array(
-                'type' => 'string'
-            ),
-            'tags' => array(
+        $validationRules = [
+            'name' => [
+                'type' => 'string',
+            ],
+            'tags' => [
                 'type' => 'array',
-                'params' => array(
-                    'items_validator' => array(
-                        'mapping' => array(
-                            'name' => array(
+                'params' => [
+                    'items_validator' => [
+                        'mapping' => [
+                            'name' => [
                                 'type' => 'string',
-                                'filters' => array(
-                                    'string.trim' => true
-                                )
-                            ),
-                            'url' => array(
-                                'type' => 'url'
-                            )
-                        )
-                    )
-                ),
-                'success' => function($tags, ValidationError $error) use ($testCase, &$callsCount){
+                                'filters' => [
+                                    'string.trim' => true,
+                                ],
+                            ],
+                            'url' => [
+                                'type' => 'url',
+                            ],
+                        ],
+                    ],
+                ],
+                'success' => function ($tags, ValidationError $error) use ($testCase, &$callsCount) {
                     $callsCount++;
                     $testCase->assertTrue(count($tags) === 2);
                     $testCase->assertTrue($error->isValid());
                     $testCase->assertEquals(1, $callsCount);
-                }
-            )
-        );
-        $validData = array(
-            'tags' => array(
-                array(
+                },
+            ],
+        ];
+        $validData = [
+            'tags' => [
+                [
                     'name' => 'PHP',
-                    'url' => 'http://en.wikipedia.org/wiki/PHP'
-                ),
-                array(
+                    'url' => 'http://en.wikipedia.org/wiki/PHP',
+                ],
+                [
                     'name' => ' JavaScript',
                     'url' => 'http://en.wikipedia.org/wiki/JavaScript',
-                )
-            )
-        );
+                ],
+            ],
+        ];
 
-        $invalidData = array(
+        $invalidData = [
             'name' => 'test',
-            'tags' => array(
+            'tags' => [
                 'Java',
-                array(
+                [
                     'name' => 'PHP',
-                    'url' => 'http://en.wikipedia.org/wiki/PHP'
-                ),
-                array(
+                    'url' => 'http://en.wikipedia.org/wiki/PHP',
+                ],
+                [
                     'name' => 'JavaScript',
                     'url' => 'http://en.wikipedia.org/wiki/JavaScript',
-                )
-            )
-        );
+                ],
+            ],
+        ];
 
         $validator = new ValidationManager($validData, $validationRules);
         $this->assertTrue($validator->validate()->isValid());

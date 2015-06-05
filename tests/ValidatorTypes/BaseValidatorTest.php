@@ -23,7 +23,7 @@ class BaseValidatorTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('error message', $baseValidator->getErrorMessage());
     }
-    
+
     /** @test */
     public function it_return_custom_message_if_it_set()
     {
@@ -47,8 +47,8 @@ class BaseValidatorTest extends PHPUnit_Framework_TestCase
         $baseValidator->extendDefaultCustomErrors([
             'custom_case_key' => [
                 'message' => 'custom case error',
-                'overwrite' => false
-            ]
+                'overwrite' => false,
+            ],
         ]);
         $this->assertEquals('custom case error', $baseValidator->getCustomErrorMessage('custom_case_key'));
     }
@@ -64,8 +64,8 @@ class BaseValidatorTest extends PHPUnit_Framework_TestCase
         $baseValidator->extendDefaultCustomErrors([
             'custom_case_key' => [
                 'message' => 'custom case error',
-                'overwrite' => false
-            ]
+                'overwrite' => false,
+            ],
         ]);
         $this->assertEquals('general error', $baseValidator->getCustomErrorMessage('custom_case_key'));
     }
@@ -81,8 +81,8 @@ class BaseValidatorTest extends PHPUnit_Framework_TestCase
         $baseValidator->extendDefaultCustomErrors([
             'custom_case_key' => [
                 'message' => 'custom case error',
-                'overwrite' => true
-            ]
+                'overwrite' => true,
+            ],
         ]);
         $this->assertEquals('custom case error', $baseValidator->getCustomErrorMessage('custom_case_key'));
     }

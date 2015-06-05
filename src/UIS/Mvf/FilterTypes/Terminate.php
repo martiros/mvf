@@ -1,4 +1,5 @@
 <?php
+
 namespace UIS\Mvf\FilterTypes;
 
 use UIS\Mvf\Exceptions\TerminateFiltersChain;
@@ -11,6 +12,7 @@ class Terminate extends BaseFilter
         if (empty($var)) {
             throw new TerminateFiltersChain();
         }
+
         return $var;
     }
 }

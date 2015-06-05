@@ -14,6 +14,7 @@ class Url extends BaseValidator
         if (!Util::isUrl($valueToValidate)) {
             return $this->makeError();
         }
+
         return $this->makeValid();
     }
 }

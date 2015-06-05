@@ -1,4 +1,5 @@
 <?php
+
 namespace UIS\Mvf\ValidatorTypes;
 
 use UIS\Mvf\Util;
@@ -56,6 +57,7 @@ class String extends BaseValidator
                 return $this->makeError('regexp');
             }
         }
+
         return $this->makeValid();
     }
 }

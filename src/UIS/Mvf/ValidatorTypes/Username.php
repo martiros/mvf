@@ -1,4 +1,5 @@
 <?php
+
 namespace UIS\Mvf\ValidatorTypes;
 
 use UIS\Mvf\Util;
@@ -7,7 +8,7 @@ class Username extends BaseValidator
 {
     protected $params = [
         'min_length' => 6,
-        'max_length' => 40
+        'max_length' => 40,
     ];
 
     protected $defaultError = '{validation.error.username.invalid}';
@@ -63,6 +64,7 @@ class Username extends BaseValidator
         if ($this->isContainPeriodsPunctuation()) {
             return $this->makeError('punctuation');
         }
+
         return $this->makeValid();
     }
 
@@ -76,10 +78,11 @@ class Username extends BaseValidator
             return false;
         }
 
-        preg_match( '/[^A-Z0-9\.]{1,}/i', $username, $matches);
+        preg_match('/[^A-Z0-9\.]{1,}/i', $username, $matches);
         if (!empty($matches)) {
             return false;
         }
+
         return true;
     }
 
@@ -92,6 +95,7 @@ class Username extends BaseValidator
         if (strpos($username, '.') === 0) {
             return false;
         }
+
         return true;
     }
 
@@ -104,6 +108,7 @@ class Username extends BaseValidator
         if ('.' === substr($username, -1)) {
             return false;
         }
+
         return true;
     }
 
@@ -113,6 +118,7 @@ class Username extends BaseValidator
     protected function isContainPeriodsPunctuation()
     {
         $username = $this->getVarValue();
+
         return strpos($username, '..') !== false;
     }
 }

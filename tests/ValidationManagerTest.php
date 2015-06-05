@@ -10,12 +10,12 @@ class ValidationManagerTest extends PHPUnit_Framework_TestCase
         $validationRules = [
             'name' => [
                 'type' => 'string',
-                'success' => function($validateVar, ValidationError $validationError, ValidationManager $validationManager){
+                'success' => function ($validateVar, ValidationError $validationError, ValidationManager $validationManager) {
 
-                }
+                },
             ],
             'price' => [
-                'type' => 'float'
+                'type' => 'float',
             ],
         ];
 
@@ -30,12 +30,12 @@ class ValidationManagerTest extends PHPUnit_Framework_TestCase
         $validationRules = [
             'name' => [
                 'type' => 'string',
-                'success' => function($validateVar, $validationError, $this){
+                'success' => function ($validateVar, $validationError, $this) {
                     return false;
-                }
+                },
             ],
             'price' => [
-                'type' => 'float'
+                'type' => 'float',
             ],
         ];
 

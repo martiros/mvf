@@ -6,10 +6,10 @@ use UIS\Mvf\ValidationManager;
 
 class Mvf extends BaseValidator
 {
-    protected $params = array(
+    protected $params = [
         'conf' => null,
-        'mapping' => null
-    );
+        'mapping' => null,
+    ];
 
     public function validate()
     {
@@ -20,6 +20,7 @@ class Mvf extends BaseValidator
 
         $validationResult = $validator->validate();
         $this->setVarValue($data);
+
         return $validationResult;
     }
 

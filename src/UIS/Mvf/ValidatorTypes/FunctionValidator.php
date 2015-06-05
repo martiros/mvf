@@ -6,9 +6,9 @@ use InvalidArgumentException;
 
 class FunctionValidator extends BaseValidator
 {
-    protected $params = array(
-        'function' => null
-    );
+    protected $params = [
+        'function' => null,
+    ];
 
     public function validate()
     {
@@ -17,6 +17,7 @@ class FunctionValidator extends BaseValidator
         if (!call_user_func($this->params['function'], $valueToValidate, $this->getValidationManager())) {
             return $this->makeError();
         }
+
         return $this->makeValid();
     }
 

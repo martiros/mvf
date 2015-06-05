@@ -1,39 +1,39 @@
 <?php
 
-use \UIS\Mvf\ValidationManager;
+use UIS\Mvf\ValidationManager;
 
 class TypeMvfTest extends PHPUnit_Framework_TestCase
 {
     public function testMvf()
     {
-        $validationRules = array(
-            'name' => array(
+        $validationRules = [
+            'name' => [
                 'type' => 'string',
-            ),
-            'address' => array(
+            ],
+            'address' => [
                 'type' => 'mvf',
-                'params' => array(
-                    'mapping' => array(
-                        'street' => array(
+                'params' => [
+                    'mapping' => [
+                        'street' => [
                             'type' => 'string',
-                            'filters' => array(
-                                'string.trim' => true
-                            )
-                        ),
-                        'country_id' => array(
-                            'type' => 'int'
-                        ),
-                    ),
-                )
-            )
-        );
-        $data = array(
+                            'filters' => [
+                                'string.trim' => true,
+                            ],
+                        ],
+                        'country_id' => [
+                            'type' => 'int',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        $data = [
             'name' => 'Test',
-            'address' => array(
+            'address' => [
                 'country_id' => 'not integer',
-                'street' => 'test '
-            )
-        );
+                'street' => 'test ',
+            ],
+        ];
 
         $validator = new ValidationManager($data, $validationRules);
         $validationErrors = $validator->validate()->errors();

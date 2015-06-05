@@ -3,8 +3,8 @@
 namespace UIS\Mvf;
 
 use UIS\Mvf\Exceptions\TerminateFiltersChain;
-use \UIS\Mvf\ValidatorTypes\BaseValidator;
-use \UIS\Mvf\FilterTypes\BaseFilter;
+use UIS\Mvf\ValidatorTypes\BaseValidator;
+use UIS\Mvf\FilterTypes\BaseFilter;
 
 class ValidationManager
 {
@@ -16,7 +16,7 @@ class ValidationManager
     /**
      * @var array
      */
-    protected $rules = array();
+    protected $rules = [];
 
     /**
      * @var ValidationResult
@@ -87,7 +87,7 @@ class ValidationManager
         }
 
         // unset all not defined keys from data
-        foreach ($this->data AS $key => $data) {
+        foreach ($this->data as $key => $data) {
             if (!isset($this->rules[$key])) {
                 unset($this->data[$key]);
             }
@@ -97,6 +97,7 @@ class ValidationManager
             $model->fill($this->data);
             $this->data = $model;
         }
+
         return $validationResult;
     }
 
@@ -116,7 +117,6 @@ class ValidationManager
                     $validateDataItem = $this->filterItem($validateDataItem, $filterName, $filterParams);
                 }
             } catch (TerminateFiltersChain $e) {
-
             }
             $this->data[$key] = $validateDataItem;
         }
@@ -137,7 +137,7 @@ class ValidationManager
             if ($validatorObject->allowChangeData()) {
                 $validateVar = $validatorObject->getVarValue();
             }
-        } else if($validationError->isValid() && $validationRule->isSetDefaultValue()) {
+        } elseif ($validationError->isValid() && $validationRule->isSetDefaultValue()) {
             $validateVar = $validationRule->getDefaultValue();
         }
 
@@ -149,6 +149,7 @@ class ValidationManager
                 }
             }
         }
+
         return $validationError;
     }
 
@@ -165,14 +166,15 @@ class ValidationManager
         $methodName = $this->getFilterClassMethod($filterName);
 
         if (!method_exists($filterObj, $methodName)) {
-            throw new \UnexpectedValueException (" Filter method ( {$methodName} ) not exists,  $filterName ");
+            throw new \UnexpectedValueException(" Filter method ( {$methodName} ) not exists,  $filterName ");
         }
         $filterObj->setVarValue($validateDataItem);
+
         return call_user_func(
-            array(
+            [
                 $filterObj,
-                $methodName
-            ),
+                $methodName,
+            ],
             $filterParams
         );
     }
@@ -184,15 +186,15 @@ class ValidationManager
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function __construct(&$data, $rules = array(), $filter = true, $model = null)
+    public function __construct(&$data, $rules = [], $filter = true, $model = null)
     {
-        $this->data = & $data;
-        $this->data = is_array($this->data) ? $this->data : array();
+        $this->data = &$data;
+        $this->data = is_array($this->data) ? $this->data : [];
         $this->filter = $filter;
 
         if (is_string($model)) {
             $this->modelClass = $model;
-        } else if (is_object($model)) {
+        } elseif (is_object($model)) {
             $this->modelClass = get_class($model);
             $this->model = $model;
         }
@@ -209,7 +211,8 @@ class ValidationManager
         if (isset($this->data[$key])) {
             return $this->data[$key];
         }
-        return null;
+
+        return;
     }
 
     /**
@@ -222,23 +225,24 @@ class ValidationManager
 
     public function setData(&$data)
     {
-        $this->data = & $data;
+        $this->data = &$data;
     }
 
     public function getModel()
     {
         if ($this->model === null) {
             if ($this->modelClass === null) {
-                return null;
+                return;
             }
             $modelClassName = $this->modelClass;
             $this->model = new $modelClassName();
         }
+
         return $this->model;
     }
 
     /**
-     * Register validator class
+     * Register validator class.
      * @param   string $validatorName
      * @param   string $validatorClassNamgit s
      * @return  void
@@ -249,7 +253,7 @@ class ValidationManager
     }
 
     /**
-     * Register filter class
+     * Register filter class.
      * @param   string $filterName
      * @param   string $filterClassName
      * @return  void
@@ -270,7 +274,6 @@ class ValidationManager
     /******************************************************************************************************************/
     /******************************************************************************************************************/
 
-
     /**
      * @var UIS_Mvf_Config
      */
@@ -279,7 +282,7 @@ class ValidationManager
     /**
      * @var array
      */
-    private $params = array();
+    private $params = [];
 
     /**
      * @var UIS_Mvf
@@ -299,7 +302,8 @@ class ValidationManager
         if (isset($this->params[$key])) {
             return $this->params[$key];
         }
-        return null;
+
+        return;
     }
 
     /**
@@ -311,7 +315,6 @@ class ValidationManager
         $this->params[$key] = $value;
     }
 
-
     /**
      * @return UIS_Mvf_Config
      */
@@ -319,7 +322,6 @@ class ValidationManager
     {
         return $this->config;
     }
-
 
     public function getParent()
     {
@@ -332,14 +334,13 @@ class ValidationManager
     }
 
     /**
-     *  Translate function name
+     *  Translate function name.
      * @var  string
      */
     protected static $transFunction = null;
 
-
     /**
-     *  Set translate function name
+     *  Set translate function name.
      * @return void
      */
     public static function setTransFunction($transFunction)
@@ -352,6 +353,7 @@ class ValidationManager
         if (self::$transFunction === null) {
             return $transKey;
         }
+
         return call_user_func_array(self::$transFunction, func_get_args());
     }
 
@@ -373,7 +375,7 @@ class ValidationManager
     {
         $type = $rule->getType();
         if ($type === null) {
-            throw new \UnexpectedValueException('Validator type not set in config rule-' . $rule->getKey());
+            throw new \UnexpectedValueException('Validator type not set in config rule-'.$rule->getKey());
         }
 
         $validatorObj = null;
@@ -392,6 +394,7 @@ class ValidationManager
             throw new \UnexpectedValueException("Validator ( $validatorClass ) Not Valid : must extends from \\UIS\\Mvf\\ValidatorTypes\\BaseValidator");
         }
         $validatorObj->setParams($rule->getParams());
+
         return $validatorObj;
     }
 
@@ -414,14 +417,15 @@ class ValidationManager
         if (!($filterObj instanceof BaseFilter)) {
             throw new \UnexpectedValueException("Filter ( $filterClassName ) Not Valid : must extends from \\UIS\\Mvf\\FilterTypes\\BaseFilter");
         }
+
         return $filterObj;
     }
 
     private function getFilterClassMethod($name)
     {
         $names = explode('.', $name);
-        if (isset ($names[1])) {
-            return $names[1] . 'Filter';
+        if (isset($names[1])) {
+            return $names[1].'Filter';
         } else {
             return 'filter';
         }
@@ -429,7 +433,7 @@ class ValidationManager
 
     protected function processValidationRules(array $rules)
     {
-        $this->rules = array();
+        $this->rules = [];
         foreach ($rules as $ruleKey => $ruleOptions) {
             $this->rules[$ruleKey] = new ConfigItem($ruleKey, $ruleOptions, $this);
         }

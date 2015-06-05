@@ -6,16 +6,16 @@ class ValidationError
 {
     private $mainError = null;
     private $requiredError = null;
-    private $errorsArray = array();
-    private $params	= array();
+    private $errorsArray = [];
+    private $params = [];
 
-    public function __construct(){
-
+    public function __construct()
+    {
     }
 
-    public function errorMessage ( ){
-
-        if ( $this->requiredError  !== null ){
+    public function errorMessage()
+    {
+        if ($this->requiredError  !== null) {
             return $this->requiredError;
         }
 
@@ -25,51 +25,59 @@ class ValidationError
 //        }
 
 
-        if ( !empty( $this->errorsArray ) ) {
-            return implode( $this->errorsArray , ', '  );
+        if (!empty($this->errorsArray)) {
+            return implode($this->errorsArray, ', ');
         }
-        return $this->mainError;
 
+        return $this->mainError;
     }
 
-    public function setError( $mainError ){
+    public function setError($mainError)
+    {
         $this->mainError = $mainError;
+
         return $this;
     }
 
-    public function addCustomError( $key , $value ){
-
-        if( $value != null ){
+    public function addCustomError($key, $value)
+    {
+        if ($value != null) {
             $this->errorsArray[ $key ] = $value;
         }
     }
 
-    public function setRequierdError( $requiredError ) {
+    public function setRequierdError($requiredError)
+    {
         $this->requiredError = $requiredError;
+
         return $this;
     }
 
     /**
      * @return array
      */
-    public function getParams(){
+    public function getParams()
+    {
         return $this->params;
     }
 
     /**
      * @param array $params
      */
-    public function setParams($params){
+    public function setParams($params)
+    {
         $this->params = $params;
     }
 
     /**
-     *  @return boolean
+     *  @return bool
      */
-    public function isValid(){
-        if( $this->mainError == null && $this->requiredError == null  && empty( $this->errorsArray ) ){
+    public function isValid()
+    {
+        if ($this->mainError == null && $this->requiredError == null  && empty($this->errorsArray)) {
             return true;
         }
+
         return false;
     }
 
@@ -77,8 +85,9 @@ class ValidationError
     {
         $errors = $this->errors();
         if (empty($errors)) {
-            return null;
+            return;
         }
+
         return  ($errors);
     }
 }

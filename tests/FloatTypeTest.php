@@ -23,9 +23,9 @@ class FloatTypeTest extends PHPUnit_Framework_TestCase
             'price' => [
                 'type' => 'float',
                 'params' => [
-                    'max_value' => 157.15
-                ]
-            ]
+                    'max_value' => 157.15,
+                ],
+            ],
         ];
 
         $validData = ['price' => '157.10'];
@@ -47,9 +47,9 @@ class FloatTypeTest extends PHPUnit_Framework_TestCase
             'price' => [
                 'type' => 'float',
                 'params' => [
-                    'min_value' => 157.15
-                ]
-            ]
+                    'min_value' => 157.15,
+                ],
+            ],
         ];
 
         $validData = ['price' => '159.10'];
@@ -71,9 +71,9 @@ class FloatTypeTest extends PHPUnit_Framework_TestCase
             'price' => [
                 'type' => 'float',
                 'params' => [
-                    'max_decimals' => 2
-                ]
-            ]
+                    'max_decimals' => 2,
+                ],
+            ],
         ];
 
         $validData = ['price' => '159'];

@@ -1,14 +1,15 @@
 <?php
+
 namespace UIS\Mvf\ValidatorTypes;
 
-use \UIS\Mvf\Util;
+use UIS\Mvf\Util;
 
 class Int extends BaseValidator
 {
-    protected $params = array(
+    protected $params = [
         'max_value' => null,
         'min_value' => null,
-    );
+    ];
 
     public function validate()
     {
@@ -24,6 +25,7 @@ class Int extends BaseValidator
         if ($this->params['max_value'] !== null && $this->params['max_value'] < $valueToValidate) {
             return $this->makeError('max_value');
         }
+
         return $this->makeValid();
     }
 }

@@ -10,6 +10,7 @@ class Bool extends BaseValidator
         if (!is_bool($valueToValidate)) {
             return $this->makeError();
         }
+
         return $this->makeValid();
     }
 }

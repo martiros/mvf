@@ -14,12 +14,13 @@ class Util
             return true;
         }
 
-        if (preg_match("/^-?[1-9][0-9]*$/D", $value)) {
+        if (preg_match('/^-?[1-9][0-9]*$/D', $value)) {
             return true;
         }
         if ($value === '0') {
             return true;
         }
+
         return false;
     }
 
@@ -29,9 +30,10 @@ class Util
      */
     public static function isDigit($value)
     {
-        if (preg_match("/^[[:digit:]]+$/", $value)) {
+        if (preg_match('/^[[:digit:]]+$/', $value)) {
             return true;
         }
+
         return false;
     }
 
@@ -44,6 +46,7 @@ class Util
         if (filter_var($value, FILTER_VALIDATE_FLOAT) === false) {
             return false;
         }
+
         return true;
     }
 
@@ -54,7 +57,8 @@ class Util
     public static function isEmail($email)
     {
         $isValid = filter_var($email, FILTER_VALIDATE_EMAIL) && preg_match('/@.+\./', $email);
-        return ( boolean )$isValid;
+
+        return (boolean) $isValid;
     }
 
     /**
@@ -67,19 +71,20 @@ class Util
     }
 
     /**
-     * Check is valid date in format Y-m-d
+     * Check is valid date in format Y-m-d.
      * @param string $date
      * @return bool
      */
     public static function isDate($date)
     {
         //match the format of the date
-        if (preg_match("/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/", $date, $parts)) {
+        if (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/', $date, $parts)) {
             //check weather the date is valid of not
             if (checkdate($parts[2], $parts[3], $parts[1])) {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -88,6 +93,7 @@ class Util
         if (filter_var($url, FILTER_VALIDATE_URL) !== false) {
             return true;
         }
+
         return false;
     }
 
@@ -101,6 +107,7 @@ class Util
         if ($encoding === null) {
             return mb_strlen($str, $encoding);
         }
+
         return mb_strlen($str, $encoding);
     }
 }

@@ -6,9 +6,9 @@ use InvalidArgumentException;
 
 class Enum extends BaseValidator
 {
-    protected $params = array(
-        'values' => null
-    );
+    protected $params = [
+        'values' => null,
+    ];
 
     public function validate()
     {
@@ -19,6 +19,7 @@ class Enum extends BaseValidator
         if (in_array($valueToValidate, $this->params['values'])) {
             return $this->makeValid();
         }
+
         return $this->makeError();
     }
 }

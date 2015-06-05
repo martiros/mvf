@@ -32,8 +32,8 @@ class ConvertFilterTest extends PHPUnit_Framework_TestCase
                 'type' => 'int',
                 'filters' => [
                     'convert.int' => true,
-                ]
-            ]
+                ],
+            ],
         ];
         $validData = ['price' => '19881dd'];
         $validator = new ValidationManager($validData, $validationRules);
@@ -69,8 +69,8 @@ class ConvertFilterTest extends PHPUnit_Framework_TestCase
                 'type' => 'array',
                 'filters' => [
                     'convert.array' => true,
-                ]
-            ]
+                ],
+            ],
         ];
         $validData = ['tags' => 'test'];
         $validator = new ValidationManager($validData, $validationRules);
@@ -111,8 +111,8 @@ class ConvertFilterTest extends PHPUnit_Framework_TestCase
                 'type' => 'float',
                 'filters' => [
                     'convert.float' => true,
-                ]
-            ]
+                ],
+            ],
         ];
         $validData = ['price' => '1988.1dd'];
         $validator = new ValidationManager($validData, $validationRules);

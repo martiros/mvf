@@ -1,4 +1,5 @@
 <?php
+
 namespace UIS\Mvf\FilterTypes;
 
 class Convert extends BaseFilter
@@ -9,6 +10,7 @@ class Convert extends BaseFilter
         if (is_object($var) || is_array($var)) {
             return 0;
         }
+
         return intval($var);
     }
 
@@ -18,6 +20,7 @@ class Convert extends BaseFilter
         if (is_object($var) || is_array($var)) {
             return 0;
         }
+
         return floatval($var);
     }
 
@@ -31,6 +34,7 @@ class Convert extends BaseFilter
         if (is_object($var)) {
             return json_decode(json_encode($var), true);
         }
+
         return [];
     }
 }

@@ -7,13 +7,13 @@ use UIS\Mvf\ValidationResult;
 
 class ArrayValidator extends BaseValidator
 {
-    protected $params = array(
+    protected $params = [
         'min_length' => 0,
         'max_length' => null,
         'allowed_values' => null,
         'array_unique' => false,
         'items_validator' => null,
-    );
+    ];
 
     public function validate()
     {
@@ -91,6 +91,7 @@ class ArrayValidator extends BaseValidator
                 return $validationResult;
             }
         }
+
         return $this->makeValid();
     }
 

@@ -10,6 +10,7 @@ class IfFilter extends BaseFilter
         if (empty($var)) {
             return isset($params['true']) ? $params['true'] : true;
         }
+
         return isset($params['false']) ? $params['false'] : false;
     }
 
@@ -19,6 +20,7 @@ class IfFilter extends BaseFilter
         if (empty($var)) {
             return isset($params['false']) ? $params['false'] : false;
         }
+
         return isset($params['true']) ? $params['true'] : true;
     }
 }

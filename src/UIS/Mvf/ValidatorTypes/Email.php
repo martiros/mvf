@@ -2,7 +2,7 @@
 
 namespace UIS\Mvf\ValidatorTypes;
 
-use \UIS\Mvf\Util;
+use UIS\Mvf\Util;
 
 class Email extends BaseValidator
 {
@@ -12,6 +12,7 @@ class Email extends BaseValidator
         if (Util::isEmail($valueToValidate) === false) {
             return $this->makeError();
         }
+
         return $this->makeValid();
     }
 }
