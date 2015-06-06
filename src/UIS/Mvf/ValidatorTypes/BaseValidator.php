@@ -36,6 +36,12 @@ abstract class BaseValidator
     protected $error = null;
 
     /**
+     * Is data required.
+     * @var bool
+     */
+    protected $required = false;
+
+    /**
      * @var \UIS\Mvf\ConfigItem
      */
     protected $rule = null;
@@ -44,6 +50,13 @@ abstract class BaseValidator
      * @var \UIS\Mvf\ValidationManager
      */
     protected $validationManager = null;
+
+    protected $mvf = null;
+
+    /**
+     *  @var  UIS_Mvf_Config_Item
+     */
+    protected $mvfConfigItem = null;
 
     public function __construct(ValidationManager $validationManager, ConfigItem $rule)
     {
@@ -91,17 +104,6 @@ abstract class BaseValidator
         return $this->validationManager;
     }
 
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-
-    private $mvf = null;
-
-    /**
-     *  @var  UIS_Mvf_Config_Item
-     */
-    protected $mvfConfigItem = null;
-
     /**
      *  @return \UIS\Mvf\ConfigItem
      */
@@ -132,30 +134,10 @@ abstract class BaseValidator
         $this->varValue = $newValue;
     }
 
-    /**
-     * Is email required.
-     * @var bool
-     */
-    protected $required = false;
-
     public function setRequired($newVal)
     {
         $this->required = $newVal;
     }
-
-    public function setMvf($mvf)
-    {
-        $this->mvf = $mvf;
-    }
-
-    public function getMvf()
-    {
-        return $this->mvf;
-    }
-
-    /****************************************************************************************************/
-    /****************************************************************************************************/
-    /****************************************************************************************************/
 
     /**
      * @return \UIS\Mvf\ValidationError

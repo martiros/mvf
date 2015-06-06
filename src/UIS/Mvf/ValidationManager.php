@@ -5,6 +5,7 @@ namespace UIS\Mvf;
 use UIS\Mvf\Exceptions\TerminateFiltersChain;
 use UIS\Mvf\ValidatorTypes\BaseValidator;
 use UIS\Mvf\FilterTypes\BaseFilter;
+use UnexpectedValueException;
 
 class ValidationManager
 {
@@ -68,6 +69,21 @@ class ValidationManager
         'convert' => '\UIS\Mvf\FilterTypes\Convert',
         'terminate' => '\UIS\Mvf\FilterTypes\Terminate',
     ];
+
+    /**
+     * @var UIS_Mvf_Config
+     */
+    private $config = null;
+
+    /**
+     * @var array
+     */
+    private $params = [];
+
+    /**
+     * @var UIS_Mvf
+     */
+    private $parent = null;
 
     /**
      * @return ValidationResult
@@ -166,7 +182,7 @@ class ValidationManager
         $methodName = $this->getFilterClassMethod($filterName);
 
         if (!method_exists($filterObj, $methodName)) {
-            throw new \UnexpectedValueException(" Filter method ( {$methodName} ) not exists,  $filterName ");
+            throw new UnexpectedValueException(" Filter method ( {$methodName} ) not exists,  $filterName ");
         }
         $filterObj->setVarValue($validateDataItem);
 
@@ -178,13 +194,6 @@ class ValidationManager
             $filterParams
         );
     }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function __construct(&$data, $rules = [], $filter = true, $model = null)
     {
@@ -244,7 +253,7 @@ class ValidationManager
     /**
      * Register validator class.
      * @param   string $validatorName
-     * @param   string $validatorClassNamgit s
+     * @param   string $validatorClassName
      * @return  void
      */
     public static function registerValidator($validatorName, $validatorClassName)
@@ -262,32 +271,6 @@ class ValidationManager
     {
         self::$registeredFilters[$filterName] = $filterClassName;
     }
-
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-
-    /**
-     * @var UIS_Mvf_Config
-     */
-    private $config = null;
-
-    /**
-     * @var array
-     */
-    private $params = [];
-
-    /**
-     * @var UIS_Mvf
-     */
-    private $parent = null;
 
     /**
      * @param string|null $key
@@ -357,15 +340,6 @@ class ValidationManager
         return call_user_func_array(self::$transFunction, func_get_args());
     }
 
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-    /******************************************************************************************************************/
-
     /**
      * @param \UIS\Mvf\ConfigItem $rule
      * @return \UIS\Mvf\ValidatorTypes\BaseValidator
@@ -375,7 +349,7 @@ class ValidationManager
     {
         $type = $rule->getType();
         if ($type === null) {
-            throw new \UnexpectedValueException('Validator type not set in config rule-'.$rule->getKey());
+            throw new UnexpectedValueException('Validator type not set in config rule-'.$rule->getKey());
         }
 
         $validatorObj = null;
@@ -386,12 +360,12 @@ class ValidationManager
         }
 
         if (!class_exists($validatorClass)) {
-            throw new \UnexpectedValueException("Validator($validatorClass) class not found.");
+            throw new UnexpectedValueException("Validator($validatorClass) class not found.");
         }
 
         $validatorObj = new $validatorClass($this, $rule);
         if (!$validatorObj instanceof BaseValidator) {
-            throw new \UnexpectedValueException("Validator ( $validatorClass ) Not Valid : must extends from \\UIS\\Mvf\\ValidatorTypes\\BaseValidator");
+            throw new UnexpectedValueException("Validator ( $validatorClass ) Not Valid : must extends from \\UIS\\Mvf\\ValidatorTypes\\BaseValidator");
         }
         $validatorObj->setParams($rule->getParams());
 
@@ -410,12 +384,12 @@ class ValidationManager
         }
 
         if (!class_exists($filterClassName)) {
-            throw new \UnexpectedValueException("Filter ($filterClassName) class not found.");
+            throw new UnexpectedValueException("Filter ($filterClassName) class not found.");
         }
 
         $filterObj = new $filterClassName();
         if (!($filterObj instanceof BaseFilter)) {
-            throw new \UnexpectedValueException("Filter ( $filterClassName ) Not Valid : must extends from \\UIS\\Mvf\\FilterTypes\\BaseFilter");
+            throw new UnexpectedValueException("Filter ( $filterClassName ) Not Valid : must extends from \\UIS\\Mvf\\FilterTypes\\BaseFilter");
         }
 
         return $filterObj;
