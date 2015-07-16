@@ -4,6 +4,11 @@ namespace UIS\Mvf\FilterTypes;
 
 class Convert extends BaseFilter
 {
+    public function boolFilter()
+    {
+        return (bool)$this->getVarValue();
+    }
+
     public function intFilter($params)
     {
         $var = $this->getVarValue();
