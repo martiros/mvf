@@ -9,7 +9,7 @@ class Terminate extends BaseFilter
     public function ifEmptyFilter($params)
     {
         $var = $this->getVarValue();
-        if (empty($var)) {
+        if ($var === '') {
             throw new TerminateFiltersChain();
         }
 
