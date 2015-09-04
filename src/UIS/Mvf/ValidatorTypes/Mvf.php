@@ -6,6 +6,8 @@ use UIS\Mvf\ValidationManager;
 
 class Mvf extends BaseValidator
 {
+    protected $name = 'object';
+
     protected $params = [
         'conf' => null,
         'mapping' => null,

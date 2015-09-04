@@ -11,6 +11,11 @@ use UnexpectedValueException;
 abstract class BaseValidator
 {
     /**
+     * @var string
+     */
+    protected $name = null;
+
+    /**
      * @var array
      */
     protected $params = [];
@@ -63,6 +68,14 @@ abstract class BaseValidator
         $this->rule = $rule;
         $this->validationManager = $validationManager;
         $this->resetError();
+    }
+
+    public function getName()
+    {
+        if ($this->name === null) {
+            return strtolower(get_class($this));
+        }
+        return $this->name;
     }
 
     /**
@@ -165,7 +178,7 @@ abstract class BaseValidator
 
     protected function resetError()
     {
-        $this->error = new ValidationError();
+        $this->error = new ValidationError($this);
     }
 
     public function makeError($customError = null)

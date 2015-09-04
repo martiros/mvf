@@ -7,6 +7,8 @@ use InvalidArgumentException;
 
 class Password extends BaseValidator
 {
+    protected $name = 'password';
+
     protected $params = [
         'min_length' => 6,
         'max_length' => 100,

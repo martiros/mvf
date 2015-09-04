@@ -86,6 +86,11 @@ class ValidationResult implements JsonSerializable
         return new ValidationErrorsMap($return);
     }
 
+    public function getErrorsMap()
+    {
+        return $this->errorsMap;
+    }
+
     /**
      *  Get error by key.
      *  @param   string   $key

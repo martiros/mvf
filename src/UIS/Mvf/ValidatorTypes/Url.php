@@ -6,6 +6,8 @@ use UIS\Mvf\Util;
 
 class Url extends BaseValidator
 {
+    protected $name = 'url';
+
     protected $defaultError = '{validation.error.url.invalid}';
 
     public function validate()

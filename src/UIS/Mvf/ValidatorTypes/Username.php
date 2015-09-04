@@ -6,6 +6,8 @@ use UIS\Mvf\Util;
 
 class Username extends BaseValidator
 {
+    protected $name = 'username';
+
     protected $params = [
         'min_length' => 6,
         'max_length' => 40,

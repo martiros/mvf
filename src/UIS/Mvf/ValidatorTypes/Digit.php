@@ -6,6 +6,8 @@ use UIS\Mvf\Util;
 
 class Digit extends BaseValidator
 {
+    protected $name = 'digit';
+
     protected $params = [
         'max_length' => null,
         'min_length' => null,

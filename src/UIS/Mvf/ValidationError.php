@@ -4,13 +4,19 @@ namespace UIS\Mvf;
 
 class ValidationError
 {
-    private $mainError = null;
-    private $requiredError = null;
-    private $errorsArray = [];
-    private $params = [];
+    protected $mainError = null;
 
-    public function __construct()
+    protected $requiredError = null;
+
+    protected $errorsArray = [];
+
+    protected $params = [];
+
+    protected $validator;
+
+    public function __construct($validator = null)
     {
+        $this->validator = $validator;
     }
 
     public function errorMessage()
@@ -38,6 +44,29 @@ class ValidationError
         if ($value != null) {
             $this->errorsArray[ $key ] = $value;
         }
+    }
+
+    public function getErrorSource()
+    {
+        return $this->getCustomErrorKey();
+    }
+
+    public function getCustomErrorKey()
+    {
+        reset($this->errorsArray);
+        return key($this->errorsArray);
+    }
+
+    public function getErrorCode()
+    {
+        $errorCode = null;
+        if ($this->validator === null) {
+            return null;
+        }
+
+        $errorCode = 'invalid.'.$this->validator->getName();
+        $customErrorKey = $this->getCustomErrorKey();
+        return $customErrorKey === null ? $errorCode : $errorCode.'.'.$customErrorKey;
     }
 
     /**

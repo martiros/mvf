@@ -4,6 +4,8 @@ namespace UIS\Mvf\ValidatorTypes;
 
 class Phone extends BaseValidator
 {
+    protected $name = 'phone';
+
     protected $defaultError = '{validation.error.phone.invalid}';
 
     public function validate()

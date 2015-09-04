@@ -4,6 +4,8 @@ namespace UIS\Mvf\ValidatorTypes;
 
 class Bool extends BaseValidator
 {
+    protected $name = 'boolean';
+
     public function validate()
     {
         $valueToValidate = $this->getVarValue();

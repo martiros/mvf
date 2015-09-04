@@ -6,6 +6,8 @@ use UIS\Mvf\Util;
 
 class Date extends BaseValidator
 {
+    protected $name = 'date';
+
     protected $params = [
         'max_date' => null,
         'min_date' => null,

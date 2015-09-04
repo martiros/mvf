@@ -6,6 +6,8 @@ use InvalidArgumentException;
 
 class Enum extends BaseValidator
 {
+    protected $name = 'enum';
+
     protected $params = [
         'values' => null,
     ];

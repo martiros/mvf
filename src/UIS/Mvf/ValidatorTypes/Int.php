@@ -6,6 +6,8 @@ use UIS\Mvf\Util;
 
 class Int extends BaseValidator
 {
+    protected $name = 'int';
+
     protected $params = [
         'max_value' => null,
         'min_value' => null,

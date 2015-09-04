@@ -7,6 +7,8 @@ use UIS\Mvf\ValidationResult;
 
 class ArrayValidator extends BaseValidator
 {
+    protected $name = 'array';
+
     protected $params = [
         'min_length' => 0,
         'max_length' => null,

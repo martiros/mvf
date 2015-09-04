@@ -6,6 +6,8 @@ use UIS\Mvf\Util;
 
 class String extends BaseValidator
 {
+    protected $name = 'string';
+
     protected $params = [
         'regexp' => null,
         'max_length' => null,

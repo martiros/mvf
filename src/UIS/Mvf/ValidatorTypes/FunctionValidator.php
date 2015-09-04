@@ -6,6 +6,8 @@ use InvalidArgumentException;
 
 class FunctionValidator extends BaseValidator
 {
+    protected $name = 'expression';
+
     protected $params = [
         'function' => null,
     ];

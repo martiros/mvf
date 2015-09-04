@@ -6,6 +6,8 @@ use UIS\Mvf\Util;
 
 class Float extends BaseValidator
 {
+    protected $name = 'float';
+
     protected $params = [
         'max_value' => null,
         'min_value' => null,
