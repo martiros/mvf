@@ -163,7 +163,7 @@ abstract class BaseValidator
     public function validateRequired()
     {
         if ($this->isEmpty()) {
-            $this->error->setError($this->rule->getRequiredError());
+            $this->error->setError($this->rule->getRequiredError())->setErrorCode('required_data');
         }
 
         return $this->error;
