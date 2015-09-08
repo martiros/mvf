@@ -14,6 +14,8 @@ class ValidationError
 
     protected $validator;
 
+    protected $errorCode = null;
+
     public function __construct($validator = null)
     {
         $this->validator = $validator;
@@ -59,6 +61,10 @@ class ValidationError
 
     public function getErrorCode()
     {
+        if ($this->errorCode) {
+            return $this->errorCode;
+        }
+
         $errorCode = null;
         if ($this->validator === null) {
             return null;
@@ -67,6 +73,13 @@ class ValidationError
         $errorCode = 'invalid.'.$this->validator->getName();
         $customErrorKey = $this->getCustomErrorKey();
         return $customErrorKey === null ? $errorCode : $errorCode.'.'.$customErrorKey;
+    }
+
+    public function setErrorCode($errorCode)
+    {
+        $this->errorCode = $errorCode;
+
+        return $this;
     }
 
     /**
