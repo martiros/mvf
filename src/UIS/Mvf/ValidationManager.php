@@ -94,7 +94,17 @@ class ValidationManager
 
         $this->validationResult = $validationResult = new ValidationResult();
         foreach ($this->rules as $key => $rule) {
-            $validateDataItem = array_key_exists($key, $this->data) ? $this->data[$key] : '';
+
+            if (!array_key_exists($key, $this->data)) {
+                if ($rule->skipIfNotExists()) {
+                    continue;
+                } else {
+                    $validateDataItem = '';
+                }
+            } else {
+                $validateDataItem = $this->data[$key];
+            }
+
             $validationError = $this->validateItem($validateDataItem, $rule);
             if (!$validationError->isValid()) {
                 $validationResult->addError($key, $validationError);
@@ -126,7 +136,17 @@ class ValidationManager
             if (!$rule->isSetFilters()) {
                 continue;
             }
-            $validateDataItem = array_key_exists($key, $this->data) ? $this->data[$key] : '';
+
+            if (!array_key_exists($key, $this->data)) {
+                if ($rule->skipIfNotExists()) {
+                    continue;
+                } else {
+                    $validateDataItem = '';
+                }
+            } else {
+                $validateDataItem = $this->data[$key];
+            }
+
             $filtersList = $rule->getFilters();
             try {
                 foreach ($filtersList as $filterName => $filterParams) {

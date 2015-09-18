@@ -67,6 +67,13 @@ class ConfigItem
     protected $success = null;
 
     /**
+     * Skip validation and filtering if property not set on data.
+     *
+     * @var bool
+     */
+    protected $skipIfNotExists = false;
+
+    /**
      * @var \UIS\Mvf\ValidationManager
      */
     protected $validationManager = null;
@@ -118,6 +125,11 @@ class ConfigItem
         if (isset($options['success'])) {
             $this->success = $options['success'];
         }
+
+        if (isset($options['skip_if_not_exists'])) {
+            $this->skipIfNotExists = $options['skip_if_not_exists'];
+        }
+
         $this->key = $key;
         $this->validationManager = $validationManager;
     }
@@ -240,6 +252,16 @@ class ConfigItem
         }
 
         return true;
+    }
+
+    /**
+     * Get skipIfNotExists option.
+     *
+     * @return boolean
+     */
+    public function skipIfNotExists()
+    {
+       return $this->skipIfNotExists;
     }
 
     /**
