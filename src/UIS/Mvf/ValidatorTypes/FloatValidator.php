@@ -4,7 +4,7 @@ namespace UIS\Mvf\ValidatorTypes;
 
 use UIS\Mvf\Util;
 
-class Float extends BaseValidator
+class FloatValidator extends BaseValidator
 {
     protected $name = 'float';
 
@@ -12,6 +12,23 @@ class Float extends BaseValidator
         'max_value' => null,
         'min_value' => null,
         'max_decimals' => null,
+    ];
+
+    protected $defaultError = '{validation.error.float.invalid}';
+
+    protected $defaultCustomErrors = [
+        'max_value' => [
+            'message' => '{validation.error.float.max_value}',
+            'overwrite' => false,
+        ],
+        'min_value' => [
+            'message' => '{validation.error.float.min_value}',
+            'overwrite' => false,
+        ],
+        'max_decimals' => [
+            'message' => '{validation.error.float.max_decimals}',
+            'overwrite' => false,
+        ],
     ];
 
     public function validate()

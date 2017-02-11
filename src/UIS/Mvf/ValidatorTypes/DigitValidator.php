@@ -4,13 +4,26 @@ namespace UIS\Mvf\ValidatorTypes;
 
 use UIS\Mvf\Util;
 
-class Digit extends BaseValidator
+class DigitValidator extends BaseValidator
 {
     protected $name = 'digit';
 
     protected $params = [
         'max_length' => null,
         'min_length' => null,
+    ];
+
+    protected $defaultError = '{validation.error.digit.invalid}';
+
+    protected $defaultCustomErrors = [
+        'min_length' => [
+            'message' => '{validation.error.digit.min_length}',
+            'overwrite' => false,
+        ],
+        'max_length' => [
+            'message' => '{validation.error.digit.max_length}',
+            'overwrite' => false,
+        ],
     ];
 
     public function validate()

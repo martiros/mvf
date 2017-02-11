@@ -2,6 +2,8 @@
 
 namespace UIS\Mvf;
 
+use Closure;
+
 /**
  * Filtering and validating configuration
  * single item for variable.
@@ -110,7 +112,7 @@ class ConfigItem
 
         $this->error = isset($options['error']) ? $options['error'] : true;
 
-        if (isset($options['required']) && $options['required'] == true) {
+        if (isset($options['required'])) {
             $this->required = $options['required'];
         }
 

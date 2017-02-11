@@ -103,13 +103,20 @@ class ValidationResult implements JsonSerializable
         }
         $error = $this->errorsMap[$key];
         $string = $error->errorMessage();
-        $errorParams = $error->getParams();
+        $params = $error->getParams();
 
+        $ucFirstKey = mb_strtoupper(mb_substr($key, 0, 1, 'UTF-8'), 'UTF-8')
+            . mb_substr($key, 1, null, 'UTF-8');
+        $params = $params + [
+                'attribute' => $key,
+                'ATTRIBUTE' => mb_strtoupper($key, 'UTF-8'),
+                'Attribute' => $ucFirstKey,
+            ];
         preg_match_all('/\{[A-Z0-9_\.]+\}/i', $string, $matches);
 
         foreach ($matches[0]  as $key => $value) {
-            $key = substr($value, 1, strlen($value) - 2); // returns "d"
-            $mlValue = empty($errorParams) ? ValidationManager::trans($key) : ValidationManager::trans($key, $errorParams);
+            $key = substr($value, 1, strlen($value) - 2);
+            $mlValue = ValidationManager::trans($key, $params);
             $string = str_replace('{'.$key.'}',  $mlValue, $string);
         }
 

@@ -62,7 +62,7 @@ class TypeUsernameTest extends PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function it_fail_validation_for_not_valid_end_char()
+    public function it_fail_validation_for_not_valid_last_char()
     {
         $validationRules = ['username' => ['type' => 'username']];
         $data = ['username' => 'martiros.aghajanyan.'];
@@ -70,7 +70,7 @@ class TypeUsernameTest extends PHPUnit_Framework_TestCase
 
         $validationResult = $validator->validate();
         $this->assertFalse($validationResult->isValid());
-        $this->assertEquals('validation.error.username.end_char', $validationResult->error('username'));
+        $this->assertEquals('validation.error.username.last_char', $validationResult->error('username'));
     }
 
     /** @test */

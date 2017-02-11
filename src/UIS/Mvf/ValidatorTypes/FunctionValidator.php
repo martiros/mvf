@@ -12,6 +12,8 @@ class FunctionValidator extends BaseValidator
         'function' => null,
     ];
 
+    protected $defaultError = '{validation.error.function.invalid}';
+
     public function validate()
     {
         $this->validateParams();

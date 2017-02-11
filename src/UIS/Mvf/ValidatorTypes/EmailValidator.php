@@ -4,9 +4,11 @@ namespace UIS\Mvf\ValidatorTypes;
 
 use UIS\Mvf\Util;
 
-class Email extends BaseValidator
+class EmailValidator extends BaseValidator
 {
     protected $name = 'email';
+
+    protected $defaultError = '{validation.error.email.invalid}';
 
     public function validate()
     {

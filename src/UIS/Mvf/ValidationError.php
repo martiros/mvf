@@ -65,6 +65,10 @@ class ValidationError
             return $this->errorCode;
         }
 
+        if ($this->requiredError !== null) {
+            return 'required';
+        }
+
         $errorCode = null;
         if ($this->validator === null) {
             return null;
