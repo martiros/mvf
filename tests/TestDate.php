@@ -4,7 +4,8 @@ use UIS\Mvf\ValidationManager;
 
 class TestDate extends PHPUnit_Framework_TestCase
 {
-    public function testDate()
+    /** @test */
+    public function it_validated_date()
     {
         $validData = [
             'birthday' => '2014-12-20',

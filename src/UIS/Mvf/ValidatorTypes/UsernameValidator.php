@@ -4,7 +4,7 @@ namespace UIS\Mvf\ValidatorTypes;
 
 use UIS\Mvf\Util;
 
-class Username extends BaseValidator
+class UsernameValidator extends BaseValidator
 {
     protected $name = 'username';
 
@@ -28,8 +28,8 @@ class Username extends BaseValidator
             'message' => '{validation.error.username.first_char}',
             'overwrite' => false,
         ],
-        'end_char' => [
-            'message' => '{validation.error.username.end_char}',
+        'last_char' => [
+            'message' => '{validation.error.username.last_char}',
             'overwrite' => false,
         ],
         'punctuation' => [
@@ -60,7 +60,7 @@ class Username extends BaseValidator
         }
 
         if (!$this->isValidEndChar()) {
-            return $this->makeError('end_char');
+            return $this->makeError('last_char');
         }
 
         if ($this->isContainPeriodsPunctuation()) {

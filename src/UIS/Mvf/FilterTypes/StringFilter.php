@@ -2,7 +2,7 @@
 
 namespace UIS\Mvf\FilterTypes;
 
-class String extends BaseFilter
+class StringFilter extends BaseFilter
 {
     public function trimFilter($params)
     {

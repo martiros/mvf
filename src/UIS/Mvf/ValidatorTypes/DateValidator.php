@@ -4,13 +4,26 @@ namespace UIS\Mvf\ValidatorTypes;
 
 use UIS\Mvf\Util;
 
-class Date extends BaseValidator
+class DateValidator extends BaseValidator
 {
     protected $name = 'date';
 
     protected $params = [
         'max_date' => null,
         'min_date' => null,
+    ];
+
+    protected $defaultError = '{validation.error.date.invalid}';
+
+    protected $defaultCustomErrors = [
+        'min_date' => [
+            'message' => '{validation.error.date.min_date}',
+            'overwrite' => false,
+        ],
+        'max_date' => [
+            'message' => '{validation.error.date.max_date}',
+            'overwrite' => false,
+        ],
     ];
 
     public function validate()

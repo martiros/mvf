@@ -3,6 +3,7 @@
 namespace UIS\Mvf;
 
 use JsonSerializable;
+use Illuminate\Support\Str;
 
 class ValidationResult implements JsonSerializable
 {
@@ -103,13 +104,17 @@ class ValidationResult implements JsonSerializable
         }
         $error = $this->errorsMap[$key];
         $string = $error->errorMessage();
-        $errorParams = $error->getParams();
-
+        $params = $error->getParams();
+        $params = $params + [
+            'attribute' => $key,
+            'ATTRIBUTE' => Str::upper($key),
+            'Attribute' => Str::ucfirst($key),
+        ];
         preg_match_all('/\{[A-Z0-9_\.]+\}/i', $string, $matches);
 
         foreach ($matches[0]  as $key => $value) {
-            $key = substr($value, 1, strlen($value) - 2); // returns "d"
-            $mlValue = empty($errorParams) ? ValidationManager::trans($key) : ValidationManager::trans($key, $errorParams);
+            $key = substr($value, 1, strlen($value) - 2);
+            $mlValue = ValidationManager::trans($key, $params);
             $string = str_replace('{'.$key.'}',  $mlValue, $string);
         }
 

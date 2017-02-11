@@ -4,7 +4,7 @@ namespace UIS\Mvf\ValidatorTypes;
 
 use UIS\Mvf\Util;
 
-class String extends BaseValidator
+class StringValidator extends BaseValidator
 {
     protected $name = 'string';
 

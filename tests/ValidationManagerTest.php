@@ -30,7 +30,7 @@ class ValidationManagerTest extends PHPUnit_Framework_TestCase
         $validationRules = [
             'name' => [
                 'type' => 'string',
-                'success' => function ($validateVar, $validationError, $this) {
+                'success' => function () {
                     return false;
                 },
             ],
