@@ -17,6 +17,31 @@ class ArrayValidator extends BaseValidator
         'items_validator' => null,
     ];
 
+    protected $defaultError = '{validation.error.array.invalid}';
+
+    protected $defaultCustomErrors = [
+        'min_length' => [
+            'message' => '{validation.error.array.min_length}',
+            'overwrite' => false,
+        ],
+        'max_length' => [
+            'message' => '{validation.error.array.max_length}',
+            'overwrite' => false,
+        ],
+        'allowed_values' => [
+            'message' => '{validation.error.array.allowed_values}',
+            'overwrite' => false,
+        ],
+        'array_unique' => [
+            'message' => '{validation.error.array.array_unique}',
+            'overwrite' => false,
+        ],
+        'items_validator' => [
+            'message' => '{validation.error.array.items_validator}',
+            'overwrite' => false,
+        ],
+    ];
+
     public function validate()
     {
         $arrayToValidate = $this->getVarValue();

@@ -4,13 +4,26 @@ namespace UIS\Mvf\ValidatorTypes;
 
 use UIS\Mvf\Util;
 
-class Int extends BaseValidator
+class IntValidator extends BaseValidator
 {
     protected $name = 'int';
 
     protected $params = [
         'max_value' => null,
         'min_value' => null,
+    ];
+
+    protected $defaultError = '{validation.error.int.invalid}';
+
+    protected $defaultCustomErrors = [
+        'min_value' => [
+            'message' => '{validation.error.int.min_value}',
+            'overwrite' => false,
+        ],
+        'max_value' => [
+            'message' => '{validation.error.int.max_value}',
+            'overwrite' => false,
+        ],
     ];
 
     public function validate()

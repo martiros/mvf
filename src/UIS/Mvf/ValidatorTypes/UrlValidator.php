@@ -2,14 +2,18 @@
 
 namespace UIS\Mvf\ValidatorTypes;
 
-class Bool extends BaseValidator
+use UIS\Mvf\Util;
+
+class UrlValidator extends BaseValidator
 {
-    protected $name = 'boolean';
+    protected $name = 'url';
+
+    protected $defaultError = '{validation.error.url.invalid}';
 
     public function validate()
     {
         $valueToValidate = $this->getVarValue();
-        if (!is_bool($valueToValidate)) {
+        if (!Util::isUrl($valueToValidate)) {
             return $this->makeError();
         }
 

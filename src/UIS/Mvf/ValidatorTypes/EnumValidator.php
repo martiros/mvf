@@ -4,13 +4,15 @@ namespace UIS\Mvf\ValidatorTypes;
 
 use InvalidArgumentException;
 
-class Enum extends BaseValidator
+class EnumValidator extends BaseValidator
 {
     protected $name = 'enum';
 
     protected $params = [
         'values' => null,
     ];
+
+    protected $defaultError = '{validation.error.enum.invalid}';
 
     public function validate()
     {

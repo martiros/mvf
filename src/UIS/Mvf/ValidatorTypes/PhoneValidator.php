@@ -2,7 +2,7 @@
 
 namespace UIS\Mvf\ValidatorTypes;
 
-class Phone extends BaseValidator
+class PhoneValidator extends BaseValidator
 {
     protected $name = 'phone';
 

@@ -4,7 +4,7 @@ namespace UIS\Mvf\ValidatorTypes;
 
 use UIS\Mvf\ValidationManager;
 
-class Mvf extends BaseValidator
+class MvfValidator extends BaseValidator
 {
     protected $name = 'object';
 

@@ -5,7 +5,7 @@ namespace UIS\Mvf\ValidatorTypes;
 use UIS\Mvf\Util;
 use InvalidArgumentException;
 
-class Password extends BaseValidator
+class PasswordValidator extends BaseValidator
 {
     protected $name = 'password';
 
@@ -48,11 +48,11 @@ class Password extends BaseValidator
             return $this->makeError();
         }
 
-        if ($error = $this->validatePasswordSecurityLevel()) {
+        if ($error = $this->validatePasswordLength()) {
             return $error;
         }
 
-        if ($error = $this->validatePasswordLength()) {
+        if ($error = $this->validatePasswordSecurityLevel()) {
             return $error;
         }
 
