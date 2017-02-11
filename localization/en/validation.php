@@ -32,8 +32,8 @@ return [
         ],
         'float' => [
             'invalid'      => 'The :attribute must be a decimal number',
-            'min_value'    => 'The :attribute may not be greater than :min_value.',
-            'max_value'    => 'The :attribute must be at least :max_value.',
+            'min_value'    => 'The :attribute must be at least :min_value.',
+            'max_value'    => 'The :attribute may not be greater than :max_value.',
             'max_decimals' => 'The :attribute must contain max :max_decimals decimal digits.',
         ],
         'function' => [
@@ -41,8 +41,8 @@ return [
         ],
         'int' => [
             'invalid'   => 'The :attribute must be an integer.',
-            'min_value' => 'The :attribute may not be greater than :min_value.',
-            'max_value' => 'The :attribute must be at least :max_value.',
+            'min_value' => 'The :attribute must be at least :min_value.',
+            'max_value' => 'The :attribute may not be greater than :max_value.',
         ],
         'password' => [
             'invalid'                   => 'The :attribute is invalid.',
