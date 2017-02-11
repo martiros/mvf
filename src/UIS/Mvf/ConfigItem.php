@@ -189,7 +189,7 @@ class ConfigItem
      */
     public function getRequiredError()
     {
-        return $this->required;
+        return $this->required === true ? '{validation.error.required}' : $this->required;
     }
 
     /**
